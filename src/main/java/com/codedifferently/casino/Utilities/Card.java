@@ -1,7 +1,6 @@
 package com.codedifferently.casino.Utilities;
 
-public class Card
-{
+public class Card {
     private Suit suit;
     private Value value;
 

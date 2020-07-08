@@ -1,4 +1,7 @@
-public class Dice {
+package com.codedifferently.casino.Utilities;
+
+public class Dice
+{
   //the side of the die we look at after rolling
   private int side; 
   //making sure we create a random number to get sides of the die
@@ -16,9 +19,8 @@ public class Dice {
   
   //method to roll the 6 sided die, acts like a setter
   public void roll(){
-     this.side = random*6 + 1; 
+     this.side = (int)random*6 + 1;
   }
 
 
-  
 }
