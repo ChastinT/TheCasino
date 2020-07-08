@@ -13,12 +13,13 @@ public class BlackJack extends CardGame
         private int playerSum;
         private int dealerSum;
         private Dealer dealer;
-        private Player player;
 
 
+        //Will deal card to player from an already shuffled deck (In CardGame class)
         public void hitPlayer()
         {
-            Card cardDrawn = deck.getRandomCard();
+
+
 
         }
         public void hitDealer()

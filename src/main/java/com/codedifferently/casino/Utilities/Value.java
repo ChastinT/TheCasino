@@ -13,4 +13,9 @@ public int valueNumber = 0;
 
         valueNumber = number;
     }
+
+    public int getvalue()
+    {
+      return valueNumber;
+    }
 }

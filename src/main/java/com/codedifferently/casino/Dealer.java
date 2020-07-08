@@ -11,11 +11,7 @@ package com.codedifferently.casino;
             betMoney = 0;
         }
 
-        //Created an add to player to add card dealt to
-        public void deal(Player player, int cardCount)
-        {
 
-        }
 
         public void bet(Player player, int amount)
         {

@@ -22,7 +22,7 @@ public class PlayerTest
              list.add(new Card(Suit.SPADES, Value.SIX));
              Player player = new Player("Matt", 1000, list);
 
-             String expected = "FIVE OF SPADES SIX OF SPADES";
+             String expected = "Matt has: FIVE OF SPADES, SIX OF SPADES,";
              Assert.assertEquals(expected, player.checkHand());
 
          }
