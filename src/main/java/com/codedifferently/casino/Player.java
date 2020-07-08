@@ -64,7 +64,6 @@ import java.util.ArrayList;
     public boolean checkHand(Value cardVal)
 
     {
-      String cardHand = "";
       for(int i = 0; i < hand.size(); i++)
       {
         if(hand.get(i).getValue() == cardVal)
@@ -74,7 +73,17 @@ import java.util.ArrayList;
       }
       return false;
     }
-
+    public boolean checkHand(Card card)
+    {
+      for(int i = 0; i < hand.size(); i++)
+      {
+        if(hand.get(i).toString().equals(card.toString()))
+        {
+          return true;
+        }
+      }
+      return false;
+    }
 
     public void addCard(Card card)
     {
