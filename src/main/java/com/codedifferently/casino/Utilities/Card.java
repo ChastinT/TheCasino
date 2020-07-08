@@ -1,12 +1,14 @@
 package com.codedifferently.casino.Utilities;
 
-public class Card {
-
-    public enum Suit {HEARTS, DIAMONDS, SPADES, CLUBS}; // Suit can only be of these 4
-    public enum Value {ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING}; // Value can only be of these
-
+public class Card
+{
     private Suit suit;
     private Value value;
+
+    public Card() {
+        suit = null;
+        value = null;
+    }
 
     // Make a card with specified suit and value
     public Card(Suit aSuit, Value aValue) {

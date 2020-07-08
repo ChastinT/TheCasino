@@ -1,14 +1,13 @@
 package com.codedifferently.casino;
 
 import com.codedifferently.casino.Utilities.Card;
-import com.codedifferently.casino.Utilities.Card.Value;
-import com.codedifferently.casino.Utilities.Card.Suit;
+import com.codedifferently.casino.Utilities.Suit;
+import com.codedifferently.casino.Utilities.Value;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CardTest
-{
+public class CardTest {
 
     @Test
     public void CardConstructorTest()
