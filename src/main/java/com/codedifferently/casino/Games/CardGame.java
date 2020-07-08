@@ -41,8 +41,10 @@ public class CardGame implements Game
             return false;
         }
 
-        public void play() {
-
+        //Will start the game
+        public void play()
+        {
+            deck.shuffle();
         }
 
         public ArrayList<Player> getPlayers() {

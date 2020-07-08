@@ -52,15 +52,15 @@ import java.util.ArrayList;
 
     public String checkHand()
     {
-      String cardHand = "";
+      String cardHand = name+ " has: ";
       for(int i = 0; i < hand.size(); i++){
-        cardHand = cardHand + hand.get(i).toString() + " ";
+        cardHand = cardHand + hand.get(i).toString() + ", ";
       }
+
       return cardHand.trim();
     }
 
     //Why is this needed?
-
     public boolean checkHand(Value cardVal)
 
     {

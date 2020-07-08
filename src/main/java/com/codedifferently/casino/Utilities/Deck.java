@@ -1,5 +1,6 @@
 package com.codedifferently.casino.Utilities;
 
+import com.codedifferently.casino.Player;
 import com.codedifferently.casino.Utilities.Card;
 import com.codedifferently.casino.Utilities.Suit;
 
@@ -33,6 +34,11 @@ import java.util.Random;
             return cards;
         }
 
+        public int getDeckSize()
+        {
+            return cards.size();
+        }
+
         // get a specfied Card
         public Card getCard(Suit suit, Value value)
         {
@@ -44,10 +50,21 @@ import java.util.Random;
                 Value currentVal = currentCard.getValue();
                 if (currentSuit.equals(suit) && currentVal.equals(value))
                 {
-                    cards.remove(currentCard);
+                    cards.remove(i);
+                    break;
                 }
             }
             return currentCard;
+        }
+
+        //Draws a card and adds it to players hand
+        public void drawCard(int toDraw, Player player)
+        {
+            for (int i = 0; i <  toDraw; i++)
+            {
+                player.addCard(cards.get(i));
+                cards.remove(i);
+            }
         }
 
 

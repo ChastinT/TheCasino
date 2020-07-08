@@ -6,7 +6,7 @@ public class CrapTest
     @Test
     public void tester()
     {
-        System.out.println("");
+        System.out.println("This works");
     }
 
 

@@ -9,44 +9,41 @@ import org.junit.Test;
 public class DeckTest 
 {
 
-    @Test
-    public void constructorTest() 
-    {
-        // Given
+   @Test
+   public void drawTest()
+   {
+       Player tom = new Player("Tom",500);
+       Deck deck = new Deck();
+       deck.drawCard(4,tom);
 
-        // When
+      System.out.println(tom.checkHand());
 
-        // Then
-
-    }
-
-    @Before
-    public Deck initialize()
-    {
-        Deck testDeck = new Deck();
-        return testDeck;
-    }
+   }
 
     @Test
     public void getDeckTest() 
     {
         // Given
-
+        Deck test = new Deck();
+        int expected =  52;
         // When
-
+    int actual = test.getDeckSize();
         // Then
+        Assert.assertEquals(expected,actual);
 
     }
 
     @Test
     public void getCardTest() 
     {
+
         // Given
+        Deck testDeck = new Deck();
         Suit testSuit = Suit.SPADES;
         Value testValue = Value.ACE;
 
         // When
-        Card testCard = initialize().getCard(testSuit,testValue);
+        Card testCard = testDeck.getCard(testSuit,testValue);
         Suit actualSuit = testCard.getSuit();
         Value actualValue = testCard.getValue();
 
