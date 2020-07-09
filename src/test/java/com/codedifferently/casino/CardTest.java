@@ -1,6 +1,5 @@
 package com.codedifferently.casino;
 
-
 import com.codedifferently.casino.Utilities.Card;
 import com.codedifferently.casino.Utilities.Suit;
 import com.codedifferently.casino.Utilities.Value;
@@ -8,11 +7,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-public class CardTest 
-{
+public class CardTest {
 
     @Test
-    public void CardConstructorTest() 
+    public void CardConstructorTest()
     {
         // Given
         Suit cardSuit = Suit.HEARTS;
@@ -28,20 +26,19 @@ public class CardTest
         Assert.assertEquals(cardVal, actualVal);
     }
 
+    Card card;
     @Before
-    public Card initialize()
-    {
-        Card card = new Card(Suit.HEARTS, Value.THREE);
-        return card;
+    public void initialize() {
+        card = new Card(Suit.HEARTS, Value.THREE);
     }
-    
+
     @Test
     public void getSuitTest() {
         // Given
         Suit expectedSuit = Suit.HEARTS;
 
         // When
-        Suit actualSuit = initialize().getSuit();
+        Suit actualSuit = card.getSuit();
 
         // Then
         Assert.assertEquals(expectedSuit, actualSuit);
@@ -53,24 +50,26 @@ public class CardTest
         Value expectedVal = Value.THREE;
 
         // When
-        Value actualVal = initialize().getValue();
+        Value actualVal = card.getValue();
 
         // Then
         Assert.assertEquals(expectedVal, actualVal);
     }
 
+<<<<<<< HEAD
 
+=======
+    @Test
+>>>>>>> ce1d5cc411533d9fef49b81f08c4aec4439990bf
     public void toStringTest() {
         // Given
         String expected = "THREE OF HEARTS";
 
         // When
-        String actual = initialize().toString();
+        String actual = card.toString();
 
         // Then
         Assert.assertEquals(expected, actual);
     }
 
-
-    
 }
