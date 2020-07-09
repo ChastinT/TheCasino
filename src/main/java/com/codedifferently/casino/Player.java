@@ -95,9 +95,16 @@ import java.util.ArrayList;
       hand.add(card);
     }
 
-    public void setSum(int sum)
+    /* Adds the values from all cards in the hand to the players sum*/
+    public void setSum()
     {
-      this.sum += sum;
+      int result = 0;
+      for (int i = 0; i < hand.size();i++)
+      {
+        result+= hand.get(i).getValue().getIntValue();
+      }
+
+      sum = result;
     }
 
     public int getSum(){

@@ -7,7 +7,7 @@ public enum Value
     SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10),
     JACK(10), QUEEN(10), KING(10); // Value can only be of these
 
-public int valueNumber = 0;
+private int valueNumber = 0;
     Value(int number)
     {
 
@@ -18,4 +18,6 @@ public int valueNumber = 0;
     {
       return valueNumber;
     }
+
+    
 }

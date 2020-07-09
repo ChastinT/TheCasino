@@ -6,6 +6,7 @@ import com.codedifferently.casino.Utilities.Suit;
 import com.codedifferently.casino.Utilities.Value;
 import org.junit.Assert;
 import org.junit.Test;
+import org.w3c.dom.CharacterData;
 
 import java.util.ArrayList;
 
@@ -106,11 +107,16 @@ public class PlayerTest
     }
 
         @Test
-        public void addCardTest(){
+        public void addCardTest()
+        {
             Player player = new Player("Matt", 1000);
+
             player.addCard(new Card(Suit.SPADES, Value.FIVE));
             player.addCard(new Card(Suit.SPADES, Value.SIX));
+
             boolean expected = true;
             Assert.assertEquals(true, player.checkHand(new Card(Suit.SPADES, Value.FIVE)));
         }
+
+    
     }

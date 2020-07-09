@@ -56,11 +56,7 @@ public class CardTest {
         Assert.assertEquals(expectedVal, actualVal);
     }
 
-<<<<<<< HEAD
-
-=======
     @Test
->>>>>>> ce1d5cc411533d9fef49b81f08c4aec4439990bf
     public void toStringTest() {
         // Given
         String expected = "THREE OF HEARTS";
