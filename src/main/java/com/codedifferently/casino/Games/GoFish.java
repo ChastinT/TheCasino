@@ -29,11 +29,7 @@ public class GoFish extends CardGame
         
         public GoFish(int numOfPlayers)
         {
-            for(int i = 0; i < numOfPlayers; i++) {
-                Player aPlayer = new Player();
-                players.add(aPlayer);
-                
-            }
+            addPlayers(numOfPlayers);
         }
         
         /*
@@ -124,7 +120,15 @@ public class GoFish extends CardGame
             }
         }
 
+        // return the cards not dealt
+        public Deck getOcean() {
+            return ocean;
+        }
 
+        // return whose turn it is (1 - # of players)
+        public int getTurn() {
+            return turn;
+        }
 
 
 }

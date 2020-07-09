@@ -7,15 +7,17 @@ import java.util.ArrayList;
 public interface Game 
 {
 
-  public String gameName = "Game";
-  ArrayList<Player> players = new ArrayList<Player>();
+  /*
+  public String gameName = "Game"; // Should interfaces have fields?
+  ArrayList<Player> players = new ArrayList<Player>(); // or belong to classes implemented?
+  */
 
   //returning the name of the Game.Game
   public String getGameName();
   //Checking to see if the game is won
   public boolean isGameWon(); 
 
-  //not sure what this does
+  // allows the game to be played
   public void play(); 
 
   //returns a list of the players

@@ -1,4 +1,4 @@
-package com.codedifferently.casino;
+package com.codedifferently.casino.Utilities;
 
 import org.junit.Test;
 

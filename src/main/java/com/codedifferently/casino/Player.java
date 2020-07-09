@@ -95,6 +95,14 @@ import java.util.ArrayList;
       hand.add(card);
     }
 
+    public Card removeCard(Card card) { hand.remove(card); return card;} // remove a specific card
+
+    public Card removeCard() { // remove card from front of hand
+      Card removed = hand.get(0);
+      hand.remove(0);
+      return removed;
+    }
+
     /* Adds the values from all cards in the hand to the players sum*/
     public void setSum()
     {

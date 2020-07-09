@@ -1,4 +1,4 @@
-package com.codedifferently.casino;
+package com.codedifferently.casino.Games;
 import org.junit.Test;
 
 public class CrapTest

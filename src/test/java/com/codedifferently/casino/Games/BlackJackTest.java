@@ -1,4 +1,4 @@
-package com.codedifferently.casino;
+package com.codedifferently.casino.Games;
 import com.codedifferently.casino.Games.BlackJack;
 
 import org.junit.Assert;

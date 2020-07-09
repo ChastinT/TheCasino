@@ -1,4 +1,4 @@
-package com.codedifferently.casino;
+package com.codedifferently.casino.Utilities;
 
 import com.codedifferently.casino.Utilities.Card;
 import com.codedifferently.casino.Utilities.Suit;

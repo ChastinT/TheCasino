@@ -11,6 +11,7 @@ public class CardGame implements Game
 
         protected Deck deck = new Deck();
         private boolean win = false;
+        protected ArrayList<Player> players = new ArrayList<Player>();
 
         // add one new player to a card game
         public void addPlayer() {
@@ -36,15 +37,15 @@ public class CardGame implements Game
         }
 
         // determine if a player has won the game
-       public boolean isGameWon() 
+        public boolean isGameWon()
         {
             return win;
         }
+
         public String getGameName() {
             return null;
         }
 
-        
 
         //Will start the game
         public void play()
@@ -53,7 +54,7 @@ public class CardGame implements Game
         }
 
         public ArrayList<Player> getPlayers() {
-            return null;
+            return players;
         }
 
         public String changeGameName(String name) {
