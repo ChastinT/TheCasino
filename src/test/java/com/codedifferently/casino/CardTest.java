@@ -59,6 +59,7 @@ public class CardTest
         Assert.assertEquals(expectedVal, actualVal);
     }
 
+
     public void toStringTest() {
         // Given
         String expected = "THREE OF HEARTS";

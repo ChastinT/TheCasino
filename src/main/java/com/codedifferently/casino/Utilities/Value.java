@@ -14,7 +14,7 @@ public int valueNumber = 0;
         valueNumber = number;
     }
 
-    public int getvalue()
+    public int getIntValue()
     {
       return valueNumber;
     }

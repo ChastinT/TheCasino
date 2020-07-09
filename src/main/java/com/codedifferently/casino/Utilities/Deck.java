@@ -39,6 +39,11 @@ import java.util.Random;
             return cards.size();
         }
 
+        // get a card based on index in array
+        public Card getCard(int index) {
+            return cards.get(index);
+        }
+        
         // get a specfied Card
         public Card getCard(Suit suit, Value value)
         {
@@ -57,7 +62,7 @@ import java.util.Random;
             return currentCard;
         }
 
-        //Draws a card and adds it to players hand
+        //Draws multiple card and adds it to players hand
         public void drawCard(int toDraw, Player player)
         {
             for (int i = 0; i <  toDraw; i++)
@@ -67,14 +72,29 @@ import java.util.Random;
             }
         }
 
+        public Card drawCard(Player player){ //drawing one card for (Go Fish) and returning that card
+            Card x = new Card();
+            for (int i = 0; i < 1; i++)
+            {
+                player.addCard(cards.get(i));
+                x = cards.remove(i);
+            }
+            return x;
+        }
+
 
         // get a random card
         public Card getRandomCard()
         {
-           int cardIndex = rand.nextInt(cards.size());
-            Card currentCard = cards.get(cardIndex);
-            cards.remove(currentCard);
+            int cardIndex = rand.nextInt(cards.size());
+            Card currentCard = cards.remove(cardIndex);
             return currentCard;
+        }
+
+        // get next card in the deck
+        public Card getNextCard() {
+            Card next = cards.remove(0);
+            return next;
         }
 
         // add a card to the deck

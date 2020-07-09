@@ -3,9 +3,6 @@ package com.codedifferently.casino.Utilities;
 public class Card
 {
 
-
-
-
         Suit suit;
         Value value;
 

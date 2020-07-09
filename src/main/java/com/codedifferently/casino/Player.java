@@ -9,18 +9,22 @@ import java.util.ArrayList;
   {
     private String name;
     private double money;
+    private int sum;
 
-    private ArrayList<Card> hand = new ArrayList<Card>();
+    protected ArrayList<Card> hand = new ArrayList<Card>();
 
     public Player()
     {
-
+      name = "John Doe";
+      money = 100;
+      sum = 0;
     }
 
     public Player(String name,double money)
     {
       this.name = name;
       this.money = money;
+      sum = 0;
     }
 
     public Player(String name,double money, ArrayList<Card> cards)
@@ -28,6 +32,7 @@ import java.util.ArrayList;
       this.name = name;
       this.money = money;
       hand = cards;
+      sum = 0;
     }
 
     public String getName()
@@ -60,7 +65,6 @@ import java.util.ArrayList;
       return cardHand.trim();
     }
 
-    //Why is this needed?
     public boolean checkHand(Value cardVal)
 
     {
@@ -73,6 +77,7 @@ import java.util.ArrayList;
       }
       return false;
     }
+    
     public boolean checkHand(Card card)
     {
       for(int i = 0; i < hand.size(); i++)
@@ -88,6 +93,25 @@ import java.util.ArrayList;
     public void addCard(Card card)
     {
       hand.add(card);
+    }
+
+    public void setSum(int sum)
+    {
+      this.sum += sum;
+    }
+
+    public int getSum(){
+      return sum;
+    }
+
+    public ArrayList<Card> getHand()
+    {
+      return hand;
+    }
+
+    public Card getCard(int getter)
+    {
+      return hand.get(getter);
     }
 
 

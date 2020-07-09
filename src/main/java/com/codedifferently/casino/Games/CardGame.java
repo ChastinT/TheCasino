@@ -14,8 +14,14 @@ public class CardGame implements Game
 
         // add one new player to a card game
         public void addPlayer() {
-            Player newPlayer = new Player("Player.Player", 500);
+            Player newPlayer = new Player("Player", 500);
             players.add(newPlayer);
+        }
+
+        // add one new player to a card game
+        public void addPlayer(Player player) 
+        {
+            players.add(player);
         }
 
         // add a specified number of players to a card game
