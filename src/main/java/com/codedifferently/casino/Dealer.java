@@ -3,7 +3,7 @@ package com.codedifferently.casino;
     public class Dealer extends Player implements Gamble
     {
 
-        private double betMoney;
+        private int betMoney;
 
         public Dealer()
         {
@@ -13,14 +13,14 @@ package com.codedifferently.casino;
 
 
 
-        public void bet(Player player, double amount)
+        public void bet(Player player, int amount)
         {
             player.setMoney(player.getMoney()-amount);
             betMoney += amount;
             player.setBet(amount);
         }
 
-        public double getBetMoney()
+        public int getBetMoney()
         {
             return betMoney;
         }

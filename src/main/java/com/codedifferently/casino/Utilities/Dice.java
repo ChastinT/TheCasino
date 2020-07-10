@@ -1,11 +1,12 @@
 package com.codedifferently.casino.Utilities;
 
+import java.util.Random;
+
 public class Dice
 {
   //the side of the die we look at after rolling
   private int side; 
-  //making sure we create a random number to get sides of the die
-  protected double random = Math.random();
+
 
   //constructor for dice:
   public Dice(){
@@ -17,9 +18,13 @@ public class Dice
     return this.side; 
   }
   
-  //method to roll the 6 sided die, acts like a setter
-  public void roll(){
-     this.side = (int)random*6 + 1;
+  //method to roll the 6 sided die using a random object, acts like a setter
+  public void roll()
+  {
+    /*The number inside rand.nextInt() ranges from 0-5 then added by 1 to get a range of 1-6
+      the number is different each time roll is called*/
+    Random rand = new Random();
+     this.side = rand.nextInt(6) + 1; 
   }
 
 

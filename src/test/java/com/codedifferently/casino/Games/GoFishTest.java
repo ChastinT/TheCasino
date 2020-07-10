@@ -47,11 +47,7 @@ public class GoFishTest {
 
         // Then
         for(Player eachPlayer : currentPlayers) {
-<<<<<<< HEAD
             Assert.assertEquals(numOfCards, eachPlayer.getHand().size());
-=======
-            Assert.assertEquals(7, eachPlayer.getHand().size());
->>>>>>> f00afa4c64da254025681c150a8ab159320cdf76
         }
     }
 
@@ -82,18 +78,11 @@ public class GoFishTest {
         // Then
         Assert.assertTrue(currentPlayer.checkHand(expected));
     }
-<<<<<<< HEAD
  //Not sure we need to test acessors and getters?
     @Test
     public void getMatchesTest() {
         // Given
         
-=======
-
-    @Test
-    public void getMatchesTest() {
-        // Given
->>>>>>> f00afa4c64da254025681c150a8ab159320cdf76
 
         // When
 
@@ -109,7 +98,6 @@ public class GoFishTest {
         // Then
     }
 
-<<<<<<< HEAD
     /*Test is Completed now - Faith */
     @Test
     public void countMatchesTest() {
@@ -134,15 +122,6 @@ public class GoFishTest {
 
         // Then
         Assert.assertEquals(expected, actual);
-=======
-    @Test
-    public void countMatchesTest() {
-        // Given
-
-        // When
-
-        // Then
->>>>>>> f00afa4c64da254025681c150a8ab159320cdf76
 
     }
 
@@ -160,7 +139,6 @@ public class GoFishTest {
         Assert.assertTrue(gameWon);
     }
 
-<<<<<<< HEAD
     //Faith - I'll fix this 
     @Test
     public void whoWonGameTest() {
@@ -169,20 +147,6 @@ public class GoFishTest {
        //When
 
        //Then
-=======
-    @Test
-    public void isGameWonTestPlayer() {
-        // Given
-        for(int i = 0; i < currentPlayer.getHand().size(); i++) { // empty the hand
-            currentPlayer.removeCard();
-        }
-
-        // When
-        boolean gameWon = goFish.isGameWon(currentPlayer);
-
-        // Then
-        Assert.assertTrue(gameWon);
->>>>>>> f00afa4c64da254025681c150a8ab159320cdf76
     }
 
     @Test
@@ -224,7 +188,6 @@ public class GoFishTest {
         Assert.assertEquals(expectedTurn, actualTurn);
     }
 
-<<<<<<< HEAD
     @Test
     public void numToValueTest() {
         // Given
@@ -261,6 +224,3 @@ public class GoFishTest {
 
 }
     
-=======
-}
->>>>>>> f00afa4c64da254025681c150a8ab159320cdf76

@@ -81,7 +81,8 @@ public class Casino
     }
     else if (choice == 2)
     {
-      setGame(new GoFish(3));
+      System.out.println("How many players for GoFish");
+      setGame(new GoFish(scan.nextInt()));
     }
     else if (choice == 3)
     {

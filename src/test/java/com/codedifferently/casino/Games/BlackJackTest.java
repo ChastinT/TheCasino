@@ -1,9 +1,6 @@
-<<<<<<< HEAD:src/test/java/com/codedifferently/casino/BlackJackTest.java
-package com.codedifferently.casino;
-
-=======
 package com.codedifferently.casino.Games;
->>>>>>> f00afa4c64da254025681c150a8ab159320cdf76:src/test/java/com/codedifferently/casino/Games/BlackJackTest.java
+
+import com.codedifferently.casino.Player;
 import com.codedifferently.casino.Games.BlackJack;
 import com.codedifferently.casino.Utilities.Card;
 import com.codedifferently.casino.Utilities.Suit;

@@ -9,9 +9,10 @@ import java.util.ArrayList;
   {
     private String name;
     private double money;
-    private int sum;
-    private double bet;
-    private boolean loopedAlready = false;//To check if a method already looped through itself
+    private int sum; //Used for blackjack to decide hand value
+    private int bet; //Used to decide how much money the player will bet
+    private int diceValue; //Used for craps 
+    private boolean loopedAlready = false; //To check if a method already looped through itself, used for checkAce
 
     protected ArrayList<Card> hand = new ArrayList<Card>();
 
@@ -140,7 +141,7 @@ import java.util.ArrayList;
       return sum;
     }
 
-    public void setBet(double betting)
+    public void setBet(int betting)
     {
       bet = betting;
     }
@@ -178,8 +179,19 @@ import java.util.ArrayList;
       return false;
     }
 
-    public void setHand(ArrayList<Card> cards) {
+    public void setHand(ArrayList<Card> cards) 
+    {
       hand = cards;
+    }
+
+    public int getDice()
+    {
+      return diceValue;
+    }
+
+    public void setDice(int enter)
+    {
+      diceValue = enter;
     }
 
 

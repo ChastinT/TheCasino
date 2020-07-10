@@ -251,7 +251,7 @@ public class BlackJack extends CardGame
         {
  
             System.out.println(players.get(i).getName()+" Place a  bet: (Limit: 2 to 500)");
-            double amount = scan.nextDouble();
+            int amount = scan.nextInt();
             if(amount >= 2 && amount <=500 && amount <= players.get(i).getMoney())
             {
                 dealer.bet(players.get(i), amount);
