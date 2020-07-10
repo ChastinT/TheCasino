@@ -18,6 +18,10 @@ public class Dice
     return this.side; 
   }
   
+  //setter for the side of the die
+  public void setSide(int side){
+    this.side = side; 
+  }
   //method to roll the 6 sided die using a random object, acts like a setter
   public void roll()
   {

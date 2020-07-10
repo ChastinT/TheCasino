@@ -12,8 +12,7 @@ import java.util.ArrayList;
     private int sum; //Used for blackjack to decide hand value
     private int bet; //Used to decide how much money the player will bet
     private int diceValue; //Used for craps 
-    private boolean loopedAlready = false; //To check if a method already looped through itself, used for checkAce
-
+    private boolean pass;
     protected ArrayList<Card> hand = new ArrayList<Card>();
 
     public Player()
@@ -116,23 +115,9 @@ import java.util.ArrayList;
     }
 
     /* Adds the values from all cards in the hand to the players sum*/
-    public void setSum()
+    public void setSum(int enter)
     {
-     
-      sum = 0;
-      for (int i = 0; i < hand.size();i++)
-      {
-       
-        sum+= hand.get(i).getValue().getIntValue();
-      }
-      
-        if (checkAce(getSum(),loopedAlready))
-        {
-          setSum();
-        }
-
-        loopedAlready = false;
-          
+      sum = enter;
     }
 
    
@@ -146,7 +131,7 @@ import java.util.ArrayList;
       bet = betting;
     }
 
-    public double getBet()
+    public int getBet()
     {
       return bet;
     } 
@@ -160,6 +145,7 @@ import java.util.ArrayList;
     {
       return hand.get(getter);
     }
+
 
     public boolean checkAce(int result,boolean loopedAlready)
     {
@@ -175,6 +161,10 @@ import java.util.ArrayList;
         loopedAlready = true;
         return true;
 
+      }
+      else if (loopedAlready == true)
+      {
+        return false;
       }
       return false;
     }
@@ -194,5 +184,18 @@ import java.util.ArrayList;
       diceValue = enter;
     }
 
+    public void setPass(int choice){
+      if(choice == 1){
+        pass = true;
+      }
+      else
+      {
+        pass = false;
+      }
+    }
+
+    public boolean pass(){
+      return pass;
+    }
 
   }

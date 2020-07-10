@@ -17,6 +17,7 @@ public class BlackJack extends CardGame
         Scanner scan = new Scanner(System.in); //To get input
         public Dealer dealer = new Dealer(); //To compare against players and take and deal money
         private int turn; //To decide the players turn
+        private boolean loopedAlready = false;
 
         public BlackJack()
         {
@@ -28,7 +29,7 @@ public class BlackJack extends CardGame
         public void hit(Player player)
         {
             deck.drawCard(player);
-            player.setSum(); //Will set the sum of the players hand, need to take into account an ACE card being one or eleven
+            setPlayerSum(player); //Will set the sum of the players hand, need to take into account an ACE card being one or eleven
         }
 
         /*Method so a player can double their bet mid game, needs to be worked on*/
@@ -188,10 +189,10 @@ public class BlackJack extends CardGame
     /*Method that takes an input and gives players an action depending on that choice*/
     public void playersChoice()
     {
-        if (!isBust(players.get(turn))) 
+        if ((!isBust(players.get(turn)) && players.get(turn).getSum() != 21)) 
         {
             System.out.println("It's "+players.get(turn).getName()+" turn");
-            players.get(turn).setSum();
+            setPlayerSum(players.get(turn));
             System.out.println("Their hand is worth: "+players.get(turn).getSum());
             System.out.println("What will they do");
             System.out.println("1: DRAW 2: STAND 3: Double Down 4: Check Hand");
@@ -205,18 +206,22 @@ public class BlackJack extends CardGame
                 playersChoice();
             }
             //Will go to the next player in the players array
-            if (choice == 2)
+            else if (choice == 2)
             {
                 stand();
             }
             //Will double the players bet, then draw one card and then stand
-            if (choice == 3)
+           else if (choice == 3)
             {
               doubleDown(players.get(turn));
             }
-            if (choice == 4)
+           else if (choice == 4)
             {
                 System.out.println(players.get(turn).checkHand());
+            }
+            else
+            {
+              System.out.println("Please put in the correct options");
             }
         }
          else if (players.get(turn).getSum() == 21)
@@ -301,5 +306,49 @@ public class BlackJack extends CardGame
     public int getTurn(){
         return turn;
     }
+
+  /* Adds the values from all cards in the hand to the players sum*/
+  public void setPlayerSum(Player player)
+  {
+   
+    int sum = 0;
+    for (int i = 0; i < player.getHand().size();i++)
+    {
+     
+      sum+= player.getHand().get(i).getValue().getIntValue();
+    }
+    
+    player.setSum(sum);
+      if (checkAce(player,player.getSum(),loopedAlready))
+      {
+        setPlayerSum(player);
+      }
+
+      loopedAlready = false;
         
+  }
+  public boolean checkAce(Player player,int result,boolean loopedAlready)
+  {
+    if ((player.checkHand(Value.ACE) && (result > 21)) && loopedAlready == false)
+    {
+      for (int i = 0; i< player.getHand().size();i++)
+      {
+        if (player.getHand().get(i).getValue() == Value.ACE && player.getHand().get(i).getValue().getIntValue() == 11)
+        {
+          player.getHand().get(i).getValue().switchAceValue();
+        }
+      }
+      loopedAlready = true;
+      return true;
+
+    }
+    else if (loopedAlready == true)
+    {
+      return false;
+    }
+    return false;
+  }
+   
 }
+
+

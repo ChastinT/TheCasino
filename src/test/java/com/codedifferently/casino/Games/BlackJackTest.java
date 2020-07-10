@@ -37,7 +37,7 @@ public class BlackJackTest
         player.addCard(new Card(Suit.HEARTS, Value.QUEEN));
         player.addCard(new Card(Suit.SPADES, Value.QUEEN));
         player.addCard(new Card(Suit.HEARTS, Value.QUEEN));
-        player.setSum();
+        bj.setPlayerSum(player);
         boolean expected = true;
         
         boolean actual = bj.isBust(player);
@@ -56,14 +56,29 @@ public class BlackJackTest
         player.addCard(new Card(Suit.SPADES, Value.FIVE));
         twoPlayer.addCard(new Card(Suit.HEARTS, Value.QUEEN));
         twoPlayer.addCard(new Card(Suit.HEARTS, Value.TWO));
-        player.setSum();
-        twoPlayer.setSum();
+       bj.setPlayerSum(player);
+        bj.setPlayerSum(twoPlayer);
         boolean expected = true;
 
         boolean actual = bj.compareTo(player, twoPlayer);
         
         Assert.assertEquals(expected, actual);
 
+    }
+
+    @Test
+    public void aceValueTest()
+    {
+        BlackJack bj = new BlackJack();
+        Player player = new Player("Matt", 1000);
+        player.addCard(new Card(Suit.SPADES, Value.ACE)); //Should be 1
+        player.addCard(new Card(Suit.SPADES, Value.QUEEN)); //Should be 10
+        player.addCard(new Card(Suit.SPADES, Value.SEVEN)); //Should be 7
+        player.addCard(new Card(Suit.SPADES, Value.ACE)); //Should be 1
+        
+        bj.setPlayerSum(player);
+        int expected = 19;
+        Assert.assertEquals(expected, player.getSum()); 
     }
     
 }

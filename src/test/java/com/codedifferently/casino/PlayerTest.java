@@ -136,7 +136,7 @@ public class PlayerTest
             Player player = new Player("Matt", 1000);
             player.addCard(new Card(Suit.SPADES, Value.FIVE));
             player.addCard(new Card(Suit.SPADES, Value.SIX));
-            player.setSum();
+            player.setSum(11);
             int expected = 11;
             Assert.assertEquals(expected, player.getSum());
         }
@@ -151,16 +151,6 @@ public class PlayerTest
             int expected = 1;
             Assert.assertEquals(expected, player.getCard(0).getValue().getIntValue()); 
         }
-        @Test
-        public void aceValueTest()
-        {
-            Player player = new Player("Matt", 1000);
-            player.addCard(new Card(Suit.SPADES, Value.ACE));  
-            player.addCard(new Card(Suit.SPADES, Value.ACE)); 
-            
-            player.setSum();
-            int expected = 2;
-            Assert.assertEquals(expected, player.getSum()); 
-        }
+       
     
     }

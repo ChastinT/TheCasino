@@ -46,7 +46,6 @@ public class CardGame implements Game
             return null;
         }
 
-
         //Will start the game
         public void play()
         {

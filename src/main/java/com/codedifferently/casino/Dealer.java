@@ -4,14 +4,13 @@ package com.codedifferently.casino;
     {
 
         private int betMoney;
+        private int sum;
 
         public Dealer()
         {
             super("John", 1500);
             betMoney = 0;
         }
-
-
 
         public void bet(Player player, int amount)
         {
@@ -25,10 +24,14 @@ package com.codedifferently.casino;
             return betMoney;
         }
 
-
         public void dealMoney(Player player) 
         {
             player.setMoney(player.getMoney()+(player.getBet()*2));
+        }
+
+        public int getSum()
+        {
+          return sum;
         }
 
     }

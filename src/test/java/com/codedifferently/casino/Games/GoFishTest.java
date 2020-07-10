@@ -60,7 +60,6 @@ public class GoFishTest {
         currentPlayer.addCard(cardExpected);
         boolean actual = goFish.ask(currentPlayer, cardExpected.getValue());
 
-
         // Then
         Assert.assertEquals(true, actual);
     }
@@ -78,31 +77,12 @@ public class GoFishTest {
         // Then
         Assert.assertTrue(currentPlayer.checkHand(expected));
     }
- //Not sure we need to test acessors and getters?
-    @Test
-    public void getMatchesTest() {
-        // Given
-        
-
-        // When
-
-        // Then
-    }
-
-    @Test
-    public void setMatchesTest() {
-        // Given
-
-        // When
-
-        // Then
-    }
+ 
 
     /*Test is Completed now - Faith */
     @Test
     public void countMatchesTest() {
         // Given
-        //get one of the players
         currentPlayer = currentPlayers.get(0);
         //set their hand to have certain cards??
         // Yea that's what I did in another test (Had to create setHand method in Player)
@@ -137,16 +117,6 @@ public class GoFishTest {
 
         // Then
         Assert.assertTrue(gameWon);
-    }
-
-    //Faith - I'll fix this 
-    @Test
-    public void whoWonGameTest() {
-       //Given 
-
-       //When
-
-       //Then
     }
 
     @Test

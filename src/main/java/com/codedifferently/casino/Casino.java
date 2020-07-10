@@ -11,6 +11,9 @@ public class Casino
   private Double casinoAccount = 500000000.00; 
   Scanner scan = new Scanner(System.in);
   Game game;
+  BlackJack blackJack = new BlackJack();
+  GoFish goFish = new GoFish();
+  
 
 
   public Casino(Double money){
@@ -62,7 +65,8 @@ public class Casino
     playGame();
   }
 
-  public void giveDealer(Dealer dealer){
+  public void giveDealer(Dealer dealer)
+  {
     dealer.setMoney(1500);
     removeCasinoMoney(1500);
   }
@@ -75,15 +79,18 @@ public class Casino
     System.out.println("\nWelcome to the Casino \nWhat games would you like to play");
     System.out.println("1: BlackJack \n2: Go Fish \n3: Craps");
     int choice = scan.nextInt();
+    //Complete
     if (choice == 1)
     {
       setGame(new BlackJack());
     }
+    /*Needs more testing*/
     else if (choice == 2)
     {
       System.out.println("How many players for GoFish");
       setGame(new GoFish(scan.nextInt()));
     }
+    /*Needs more work done*/
     else if (choice == 3)
     {
       setGame(new Craps());

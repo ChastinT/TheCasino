@@ -13,9 +13,7 @@ public class GoFish extends CardGame
 
         private int turn = 1; // keeps track of whose turn it is
         private Deck ocean = new Deck(); // cards not dealt to players
-        private int matches = 0; //The number of the player's matches; Brent - Not sure why we have this field?
-     
-        
+           
         // Play the Go Fish game
         public void play() {
             Scanner keyboard = new Scanner(System.in);
@@ -131,22 +129,12 @@ public class GoFish extends CardGame
             }
             return null;
         }
-
-        public int getMatches(){
-            return this.matches; 
-        }
-
-        public int setMatches(int num){
-            return this.matches = num;
-        }
-        
+ 
         //This method counts the number of occurences of a value
-        // @Faith - I think your method checks if two cards are the same (suit and value)
-        // *Only needs to check the value of each card to determine a match*
         public int countMatches(Player player, Value v){
             int matches = 0;
             ArrayList<Card> hand = player.getHand();
-            for(int i = 0; i < hand.size(); i++){ //iterating through one card at a time (terrible run time lol)
+            for(int i = 0; i < hand.size(); i++){ 
                 if(hand.get(i).getValue().equals(v)) {
                     matches++;
                 }
@@ -164,31 +152,6 @@ public class GoFish extends CardGame
             }
             return false;
         }
-
-        //This method has to change as well:
-        /*
-
-        // Determines what player won the game after the game is ended. 
-        public String whoWonGame(ArrayList<Player> player){
-            //iterating through all of the players to find the person with the most matches
-            //createing a helper arraylist to store the values of the matches
-            ArrayList<Integer> playerMatches = new ArrayList<Integer>();
-            for(int i = 0; i < player.size(); i++){
-                playerMatches.add(countMatches(player.get(i)));   
-            }
-
-            //finding the max num of matches in the playerMatches array
-            int max = playerMatches.get(0); 
-            int maxPlayer = 0; 
-            for(int i = 1; i < playerMatches.size(); i++){
-                if(playerMatches.get(i) > max){
-                    max = playerMatches.get(i); 
-                    maxPlayer = i; 
-                }
-            }
-            return "Player " + maxPlayer + "won with " + playerMatches.get(maxPlayer); 
-
-        } */
 
         // Give the turn to the next player
         public void nextTurn() {
