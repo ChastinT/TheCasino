@@ -16,7 +16,7 @@ public interface Game
   //Checking to see if the game is won
   public boolean isGameWon(); 
 
-  //not sure what this does
+  // allows the game to be played
   public void play(); 
 
   //returns a list of the players

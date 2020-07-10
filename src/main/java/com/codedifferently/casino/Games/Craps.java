@@ -87,7 +87,7 @@ public  class Craps implements Game, Gamble
 
       public void bet(Player player, double amount) 
       {
-        player.setBet(betting);
+        player.setBet(amount);
 
       }
 

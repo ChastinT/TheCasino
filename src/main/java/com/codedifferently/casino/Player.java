@@ -114,7 +114,7 @@ import java.util.ArrayList;
       return removed;
     }
 
-    /* Adds the values from all cards in the hand to the players sum,needs to be worked on to take into account ACE*/
+    /* Adds the values from all cards in the hand to the players sum*/
     public void setSum()
     {
      
@@ -124,7 +124,7 @@ import java.util.ArrayList;
        
         sum+= hand.get(i).getValue().getIntValue();
       }
-
+      
         if (checkAce(getSum(),loopedAlready))
         {
           setSum();
@@ -143,7 +143,7 @@ import java.util.ArrayList;
     public void setBet(double betting)
     {
       bet = betting;
-    } 
+    }
 
     public double getBet()
     {

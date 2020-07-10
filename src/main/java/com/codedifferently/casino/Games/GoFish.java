@@ -96,11 +96,7 @@ public class GoFish extends CardGame
         
         public GoFish(int numOfPlayers) // Generate given number of players and store in players (ArrayList)
         {
-            for(int i = 0; i < numOfPlayers; i++) {
-                Player aPlayer = new Player();
-                players.add(aPlayer);
-                
-            }
+            addPlayers(numOfPlayers);
         }
         
         /*
