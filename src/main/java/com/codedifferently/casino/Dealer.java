@@ -13,20 +13,22 @@ package com.codedifferently.casino;
 
 
 
-        public void bet(Player player, int amount)
+        public void bet(Player player, double amount)
         {
             player.setMoney(player.getMoney()-amount);
             betMoney += amount;
+            player.setBet(amount);
         }
 
-        public void dealMoney(Player player, double amount)
+        public double getBetMoney()
         {
-
+            return betMoney;
         }
 
-        public void dealMoney(Player player)
+
+        public void dealMoney(Player player) 
         {
-          player.setMoney(player.getMoney()+betMoney);
+            player.setMoney(player.getMoney()+(player.getBet()*2));
         }
 
     }

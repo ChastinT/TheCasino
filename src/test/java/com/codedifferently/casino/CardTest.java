@@ -67,5 +67,6 @@ public class CardTest {
         // Then
         Assert.assertEquals(expected, actual);
     }
+    
 
 }

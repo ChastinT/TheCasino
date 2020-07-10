@@ -10,6 +10,8 @@ import java.util.ArrayList;
     private String name;
     private double money;
     private int sum;
+    private double bet;
+    private boolean loopedAlready = false;//To check if a method already looped through itself
 
     protected ArrayList<Card> hand = new ArrayList<Card>();
 
@@ -20,6 +22,12 @@ import java.util.ArrayList;
       sum = 0;
     }
 
+    public Player(String name){
+      this.name = name;
+      this.money = 100; 
+      sum = 0; 
+    }
+
     public Player(String name,double money)
     {
       this.name = name;
@@ -27,6 +35,9 @@ import java.util.ArrayList;
       sum = 0;
     }
 
+    /**
+     * Helps test the Player class
+     */
     public Player(String name,double money, ArrayList<Card> cards)
     {
       this.name = name;
@@ -50,7 +61,7 @@ import java.util.ArrayList;
         return money;
     }
 
-    protected void setMoney(double enter)
+    public void setMoney(double enter)
     {
       this.money = enter;
     }
@@ -95,21 +106,49 @@ import java.util.ArrayList;
       hand.add(card);
     }
 
-    /* Adds the values from all cards in the hand to the players sum*/
+    public Card removeCard(Card card) { hand.remove(card); return card;} // remove a specific card
+
+    public Card removeCard() { // remove card from front of hand
+      Card removed = hand.get(0);
+      hand.remove(0);
+      return removed;
+    }
+
+    /* Adds the values from all cards in the hand to the players sum,needs to be worked on to take into account ACE*/
     public void setSum()
     {
-      int result = 0;
+     
+      sum = 0;
       for (int i = 0; i < hand.size();i++)
       {
-        result+= hand.get(i).getValue().getIntValue();
+       
+        sum+= hand.get(i).getValue().getIntValue();
       }
 
-      sum = result;
+        if (checkAce(getSum(),loopedAlready))
+        {
+          setSum();
+        }
+
+        loopedAlready = false;
+          
     }
+
+   
 
     public int getSum(){
       return sum;
     }
+
+    public void setBet(double betting)
+    {
+      bet = betting;
+    } 
+
+    public double getBet()
+    {
+      return bet;
+    } 
 
     public ArrayList<Card> getHand()
     {
@@ -119,6 +158,28 @@ import java.util.ArrayList;
     public Card getCard(int getter)
     {
       return hand.get(getter);
+    }
+
+    public boolean checkAce(int result,boolean loopedAlready)
+    {
+      if ((checkHand(Value.ACE) && (result > 21)) && loopedAlready == false)
+      {
+        for (int i = 0; i< hand.size();i++)
+        {
+          if (hand.get(i).getValue() == Value.ACE && hand.get(i).getValue().getIntValue() == 11)
+          {
+            hand.get(i).getValue().switchAceValue();
+          }
+        }
+        loopedAlready = true;
+        return true;
+
+      }
+      return false;
+    }
+
+    public void setHand(ArrayList<Card> cards) {
+      hand = cards;
     }
 
 

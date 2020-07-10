@@ -14,116 +14,143 @@ import java.util.Scanner;
 public class BlackJack extends CardGame 
     {
 
-        public Dealer dealer = new Dealer();
-        private int turn = 0;
+        Scanner scan = new Scanner(System.in); //To get input
+        public Dealer dealer = new Dealer(); //To compare against players and take and deal money
+        private int turn; //To decide the players turn
 
         public BlackJack()
         {
-
+            turn = 0;
         }
 
 
         /*Gives the player a card and sums up the point value of their hand*/
         public void hit(Player player)
         {
-            Card card = deck.drawCard(player);
-            player.setSum();
+            deck.drawCard(player);
+            player.setSum(); //Will set the sum of the players hand, need to take into account an ACE card being one or eleven
         }
 
         /*Method so a player can double their bet mid game, needs to be worked on*/
         public void doubleDown(Player player)
         {
-            hit(player);
-            hit(player);
+            dealer.bet(players.get(turn), dealer.getBetMoney()*2);
+            hit(players.get(turn));
+            stand();
         }
 
         public void stand()
         {
             turn++;
-            if (turn >= players.size())
-            {
-                turn = 0;
-            }
         }
        
-        public boolean isBigger21(Player player){
+        public boolean isBust(Player player){
            return (player.getSum() > 21);
         }
 
-        public boolean compareTo(Player player1, Player player2){
-            if(isBigger21(player1) && !isBigger21(player2)){
+        /*Method to compare each players Value against dealer*/
+        public boolean compareTo(Player player1, Player player2)
+        {
+            if(isBust(player1) && !isBust(player2))
+            {
                 return false;
             }
-            else if (!isBigger21(player1) && isBigger21(player2)){
+            else if (!isBust(player1) && isBust(player2))
+            {
                return true;
             }
-            else if(player1.getSum() == 21 && player2.getSum() < 21){
+            else if(player1.getSum() == 21 && player2.getSum() < 21)
+            {
                 return true;
             }
-            else if(player1.getSum() < 21 && player2.getSum() == 21){
+            else if(player1.getSum() < 21 && player2.getSum() == 21)
+            {
                 return false;
             }
-            else if(player1.getSum() > player2.getSum()){
+            else if(player1.getSum() > player2.getSum())
+            {
                 return true;
             }
             return false;
         }
         
+        /*To start the game*/
         public void play()
         {
-            //setUpGame();
-            Scanner scan = new Scanner(System.in);
-            while(this.isGameWon() == false)
-                {
-                    System.out.println(dealer.getHand().get(0).getValue().getIntValue());
-                    for (int a = 0; a < players.size();a++)
-                    {
-                      System.out.print(players.get(a).getName()+"/n"+ players.get(a).getHand());
-                    }
-                    
-                   
-                        if (players.get(turn).equals(dealer)) //Will decide dealers actions
-                        {
-                            
-                        }
-                        
-                    }
-                    /*  if(player1.getSum() == player2.getSum()){
-                
-                        }
-                        else{
-                            compareTo(player1, player2)
-                        }*/
-                }
-        
+            
+            System.out.println("How many rounds do you want to play");
+            int rounds = scan.nextInt();
+                 
+            //To set players up
+            setPlayers();
+            
+            //To set up for five rounds
+            for(int i = 0; i < rounds;i++)
+            {
+                System.out.println("Starting round: "+(i+1) +" out of "+rounds);
+                    setUpGame();
+                   playersTurn();
+                   dealersTurn();
+                   gameResult();
+                   resetGame();
+            }
 
+            System.out.println("Thank you for playing");
+
+                
+                       
+        }
+        
+        /*Method to set up the game for play*/
         public void setUpGame()
     {
-            //If a game was already played puts the cards back in the deck
-            if (deck.getDeck().size() < 52)
-            {
-                deck = new Deck();
-            }
-            deck.shuffle();
-            //Selecting how many players
-            setPlayers();
+       
+            //Sets up the bet for each player
+            startingBet();
+            //Deal cards to players
             dealCards();
+            //Shows the board
+            getBoard();
+        
            
     }
+
     /*Sets up a viewable board with player names and handValue, need to make shorter*/
     public void getBoard()
     {
-        System.out.println(dealer.getName()+" the Dealer"+"\n"+"Hand is worth: "+dealer.getHand().get(0).getValue().getIntValue());
-
+        String board = "";
+        board += dealer.getName()+" the Dealer"+"\n"+"Hand is worth: "+dealer.getHand().get(0).getValue().getIntValue();
+        board += "\n"+"\n";
+        
         for (int i = 0; i < players.size();i++)
         {
-            System.out.println(players.get(i).getName()+"\n"+"Hand is worth: "+players.get(i).getSum());
+            board += String.format("%-22s",players.get(i).getName()+" ");//Prints out all players name in a single line
+           
         }
+        board += "\n";
+        for (int i = 0; i < players.size();i++)
+        {
+            players.get(i).getSum();
+            board += String.format("%-22s","Hand is worth: "+players.get(i).getSum()+" ");//Prints out all players name in a single line
+        }
+        board += "\n";
+        for (int i = 0; i < players.size();i++)
+        {
+            board += String.format("%-22s","Currently has $ "+players.get(i).getMoney()+" ");
+        }
+        
+
+        System.out.println(board);
         
     }
     /*To initially deal two cards from a shuffled deck to each player and the dealer*/
     public void dealCards()
     {
+         //If a game was already played puts the cards back in the deck
+         if (deck.getDeck().size() < 52)
+         {
+             deck = new Deck();
+         }
         deck.shuffle();
          players.add(dealer);
          for (int i = 0; i < 2;i++)
@@ -139,57 +166,140 @@ public class BlackJack extends CardGame
          players.remove(players.size()-1);
     }
 
+    /*To add players to the game, use 0 if continueing a game*/
     public void setPlayers()
     {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("How many players to add");
-            int playersAdd = scan.nextInt();
-            addPlayers(playersAdd);
-           
+        System.out.println("How many players to add, use 0 if continueing a game with no new players");
+        int playersAdd = scan.nextInt();
+        addPlayers(playersAdd);     
     }
 
     /*Method to go through every players turn and give them options depending on handValue*/
     public void playersTurn()
     {
-        Scanner scan = new Scanner(System.in);
-        for (;turn < players.size();)
+        System.out.println("");
+        for (turn = 0;turn < players.size();) //Cycles through players, turn is only increased when a player chooses to stand
+        {
+    
+            playersChoice();
+        }
+           
+    }
+    /*Method that takes an input and gives players an action depending on that choice*/
+    public void playersChoice()
+    {
+        if (!isBust(players.get(turn))) 
         {
             System.out.println("It's "+players.get(turn).getName()+" turn");
+            players.get(turn).setSum();
+            System.out.println("Their hand is worth: "+players.get(turn).getSum());
             System.out.println("What will they do");
-            if (players.get(turn).getSum() < 21) 
+            System.out.println("1: DRAW 2: STAND 3: Double Down 4: Check Hand");
+            
+            int choice = scan.nextInt();
+            System.out.println("");
+            //Will hit the player and allow them to choose again if their card value is less than 21
+            if (choice == 1) 
             {
-                System.out.println("1: DRAW"+" 2: STAND"+ " 3: Double Down");
-                int choice = scan.nextInt();
-
-                if (choice == 1)
-                {
-                    hit(players.get(turn));
-                    scan.close();
-                    playersTurn();
-                }
-                if (choice == 2)
-                {
-                    stand();
-                }
-                if (choice == 3)
-                {
-
-                }
+                hit(players.get(turn));
+                playersChoice();
             }
-            else
+            //Will go to the next player in the players array
+            if (choice == 2)
             {
                 stand();
             }
+            //Will double the players bet, then draw one card and then stand
+            if (choice == 3)
+            {
+              doubleDown(players.get(turn));
+            }
+            if (choice == 4)
+            {
+                System.out.println(players.get(turn).checkHand());
+            }
+        }
+         else if (players.get(turn).getSum() == 21)
+        {
+            System.out.println(players.get(turn).getName()+" has 21");
+            stand();
+        }
+        else if (isBust(players.get(turn)))
+        {
+            System.out.println(players.get(turn).getName()+" has busted");
+            stand();
+        }
+        System.out.println("");
+    }
+    
+    /*Dealers turn where they'll hit themselves until they get a value of 21*/
+    public void dealersTurn()
+    {
+        System.out.println("It's dealers turn");
+
+        while (dealer.getSum() < 17) //Dealer will hit till they get over 17
+        {
+            hit(dealer);
         }
     }
 
-    public void dealersTurn()
+    /*Method to ask for starting bet from each player to add to the pool*/
+    public void startingBet()
     {
+
+        for (int i = 0; i < players.size();)
+        {
+ 
+            System.out.println(players.get(i).getName()+" Place a  bet: (Limit: 2 to 500)");
+            double amount = scan.nextDouble();
+            if(amount >= 2 && amount <=500 && amount <= players.get(i).getMoney())
+            {
+                dealer.bet(players.get(i), amount);
+                i++;
+            }
+            else
+            {
+                System.out.println("Invalid Bet.");
+            }
+
+        }
+    }
+    //Works but doesn't printout when dealer wins
+    public void gameResult()
+    {
+    
+        System.out.println("The dealer has: "+dealer.getSum());
+        for (int i = 0; i < players.size();i++)
+        {
+            if (compareTo(players.get(i), dealer))
+            {
+              System.out.println(players.get(i).getName()+" wins");
+              dealer.dealMoney(players.get(i));
+            }
+        
+        }
+        
 
     }
 
+    /*Method to get rid of players hands each round*/
+    public void resetGame()
+    {
+        players.add(dealer);
+        for (int i = 0; i < players.size();i++)
+        {
+            for (int j = 0; j < players.get(i).getHand().size();j++)
+            {
+                players.get(i).getHand().clear();
+            }
+        }
+        players.remove(players.size()-1);
+        System.out.println("");
+    }
 
-
-    
+    //to test the stand method
+    public int getTurn(){
+        return turn;
+    }
         
 }

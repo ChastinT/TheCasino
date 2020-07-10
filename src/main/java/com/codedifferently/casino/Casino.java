@@ -1,13 +1,16 @@
 package com.codedifferently.casino;
 
+import java.util.Scanner;
 
-import com.codedifferently.casino.Games.Game;
+import com.codedifferently.casino.Games.*;
 
 public class Casino
 {
   //I'm going to create an account for the casino storing the money 
   private String casinoName; 
   private Double casinoAccount = 500000000.00; 
+  Scanner scan = new Scanner(System.in);
+  Game game;
 
 
   public Casino(Double money){
@@ -40,19 +43,67 @@ public class Casino
     this.casinoAccount += addition; 
   }
   
-  //not sure what this does exactly
-  public Game playGame(Game game){
-    return game; 
-  }
   
-  //is this necessary?? Because of the interface
-  /*
-  public String changeGame(Game gameName)
+  private void playGame()
   {
-    return gameName; 
+    if (game != null)
+    {
+    game.play(); 
+    }
+    else
+    {
+      System.out.println("You haven't chosen a game yet");
+    }
   }
-  */
+
+  public void setGame(Game game)
+  {
+    this.game = game;
+    playGame();
+  }
+
+  public void giveDealer(Dealer dealer){
+    dealer.setMoney(1500);
+    removeCasinoMoney(1500);
+  }
+
+ 
+
+  public void chooseGame()
+  {
+    
+    System.out.println("\nWelcome to the Casino \nWhat games would you like to play");
+    System.out.println("1: BlackJack \n2: Go Fish \n3: Craps");
+    int choice = scan.nextInt();
+    if (choice == 1)
+    {
+      setGame(new BlackJack());
+    }
+    else if (choice == 2)
+    {
+      setGame(new GoFish(3));
+    }
+    else if (choice == 3)
+    {
+      setGame(new Craps());
+    }
+    
+    System.out.println("Would you like to play another game? \n1: Yes \n2:No");
+    choice = scan.nextInt();
+    if (choice == 1)
+    {
+      chooseGame();
+    }
+    else
+    {
+      System.out.println("Thank you so much for visiting the Casino, your money is in safe hands");
+    }
 
 
-
+  }
+    public static void main(String [] args)
+    {
+      Casino casino = new Casino();
+      casino.chooseGame();
+    }
 }

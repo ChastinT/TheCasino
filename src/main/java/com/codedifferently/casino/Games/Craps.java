@@ -1,28 +1,39 @@
 package com.codedifferently.casino.Games;
 
+import com.codedifferently.casino.Gamble;
 import com.codedifferently.casino.Player;
 import com.codedifferently.casino.Utilities.Dice;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public  class Craps implements Game
+public  class Craps implements Game, Gamble
 {
      //we need two die to play craps
-      public Dice firstDice;
-      public Dice secondDice;
+      public Dice firstDice = new Dice();
+      public Dice secondDice = new Dice();
+      public int point;
       private static String gameName;
+      Scanner scan = new Scanner(System.in);
 
-      public Craps(){
+      public Craps()
+      {
         gameName = "Craps";
       }
 
-      public String getGameName(){
+      public String getGameName()
+      {
         return gameName;
       }
 
-      public void play(){
-        System.out.print("Hello welcome to the Craps.Craps Simulation!");
+      public void play()
+      {
+        System.out.println("Hello welcome to the Craps Simulation!");
         System.out.println("Enjoy the game!");
+       //Ask the user for a bet
+       //Roll the dice
+       //Get the first sum
+        while(isGameWon());
       }
 
     public ArrayList<Player> getPlayers() {
@@ -36,10 +47,10 @@ public  class Craps implements Game
     //method checking the sum of the two die
       public  int sumOfDie()
       {
-          firstDice.roll();
-          secondDice.roll();
+          
         int x = firstDice.getSide();
         int y = secondDice.getSide();
+        System.out.println("Sum: "+ (x+y));
         return x + y;
       }
 
@@ -47,24 +58,42 @@ public  class Craps implements Game
       */
 
       //method determines if game is won
-      public boolean isGameWon(){
+      public boolean isGameWon()
+      {
         //the First roll sum
-        int sum = sumOfDie();
-        if(sum == 7 || sum == 11){ //automatic win
+        int fSum = sumOfDie();
+        if(fSum == 7 || fSum == 11){ //automatic win
           return true;
         }
-        if(sum == 2 || sum == 3 || sum == 12){ //automatic loss
+        if(fSum == 2 || fSum == 3 || fSum == 12){ //automatic loss
           return false;
         }
         //Otherwise keep rolling until we can match the first roll sum
         while(true){
-          int sum2 = sumOfDie();
-          if(sum2 == 7){
+          int secSum = sumOfDie();
+          if(secSum == 7){
             return false;
           }
-          if(sum == sum2){
+          if(fSum == secSum){
             return true;
           }
         }
+      }
+      public void rollDice()
+      {
+        firstDice.roll();
+        secondDice.roll();
+      }
+
+      public void bet(Player player, double amount) 
+      {
+        player.setBet(betting);
+
+      }
+
+      public void dealMoney(Player player) 
+      {
+        player.setMoney(player.getBet());
+
       }
 }

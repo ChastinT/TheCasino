@@ -19,5 +19,20 @@ private int valueNumber = 0;
       return valueNumber;
     }
 
+    public void setIntValue(int enter)
+    {
+      valueNumber = enter;
+    }
+
+    
+
+    public void switchAceValue()
+    {
+        if (this.valueNumber == 11)
+        {
+            valueNumber = 1;
+        }
+    }
+
     
 }

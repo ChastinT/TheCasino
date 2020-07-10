@@ -40,11 +40,6 @@ public class CardGame implements Game
         {
             return win;
         }
-        public String getGameName() {
-            return null;
-        }
-
-        
 
         //Will start the game
         public void play()
@@ -53,10 +48,8 @@ public class CardGame implements Game
         }
 
         public ArrayList<Player> getPlayers() {
-            return null;
+            return players;
         }
 
-        public String changeGameName(String name) {
-            return null;
-        }
+       
     }

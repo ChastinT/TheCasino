@@ -28,7 +28,7 @@ public class PlayerTest
             Player player = new Player("Matt", 1000, list);
             Assert.assertEquals("Matt", player.getName());
             Assert.assertEquals((int)1000.00,(int) player.getMoney());
-            String expected = "FIVE OF SPADES SIX OF SPADES";
+            String expected = "Matt has: FIVE OF SPADES, SIX OF SPADES,";
             Assert.assertEquals(expected, player.checkHand());
         }
 
@@ -53,7 +53,7 @@ public class PlayerTest
             Player player = new Player("Matt", 1000, list);
 
             boolean expected = true;
-            Assert.assertEquals(true, player.checkHand(Value.SIX));
+            Assert.assertEquals(expected, player.checkHand(Value.SIX));
         }
         @Test
         public void checkHand3Test(){
@@ -63,7 +63,7 @@ public class PlayerTest
             Player player = new Player("Matt", 1000, list);
 
             boolean expected = true;
-            Assert.assertEquals(true, player.checkHand(new Card(Suit.SPADES, Value.FIVE)));
+            Assert.assertEquals(expected, player.checkHand(new Card(Suit.SPADES, Value.FIVE)));
         }
         @Test
         public void getNameTest(){
@@ -73,7 +73,7 @@ public class PlayerTest
             Player player = new Player("Matt", 1000, list);
 
             String expected = "Matt";
-            Assert.assertEquals("Matt", player.getName());
+            Assert.assertEquals(expected, player.getName());
         }
         @Test
         public void getMoneyTest(){
@@ -83,7 +83,7 @@ public class PlayerTest
              Player player = new Player("Matt", 1000, list);
 
              double expected = 1000.00;
-             Assert.assertEquals((int)1000.00,(int) player.getMoney());
+             Assert.assertEquals((int)expected,(int) player.getMoney());
          }
     @Test
     public void setNameTest(){
@@ -93,7 +93,7 @@ public class PlayerTest
         Player player = new Player("Matt", 1000, list);
         player.setName("Matthew");
         String expected = "Matthew";
-        Assert.assertEquals("Matthew", player.getName());
+        Assert.assertEquals(expected, player.getName());
     }
     @Test
     public void setMoneyTest(){
@@ -103,7 +103,7 @@ public class PlayerTest
         Player player = new Player("Matt", 1000, list);
         player.setMoney(2000.00);
         double expected = 2000.00;
-        Assert.assertEquals((int)2000.00,(int) player.getMoney());
+        Assert.assertEquals((int)expected,(int) player.getMoney());
     }
 
         @Test
@@ -115,8 +115,52 @@ public class PlayerTest
             player.addCard(new Card(Suit.SPADES, Value.SIX));
 
             boolean expected = true;
-            Assert.assertEquals(true, player.checkHand(new Card(Suit.SPADES, Value.FIVE)));
+            Assert.assertEquals(expected, player.checkHand(new Card(Suit.SPADES, Value.FIVE)));
         }
 
+        @Test
+        public void getSumTest()
+        {
+            Player player = new Player("Matt", 1000);
+
+            player.addCard(new Card(Suit.SPADES, Value.FIVE));
+            player.addCard(new Card(Suit.SPADES, Value.SIX));
+
+            int expected = 0;
+            Assert.assertEquals(expected, player.getSum());
+        }
+
+        @Test
+        public void setSumTest()
+        {
+            Player player = new Player("Matt", 1000);
+            player.addCard(new Card(Suit.SPADES, Value.FIVE));
+            player.addCard(new Card(Suit.SPADES, Value.SIX));
+            player.setSum();
+            int expected = 11;
+            Assert.assertEquals(expected, player.getSum());
+        }
+
+        @Test
+        public void switchAceTest()
+        {
+            Player player = new Player("Matt", 1000);
+            player.addCard(new Card(Suit.SPADES, Value.ACE));
+            player.getCard(0).getValue().switchAceValue();
+
+            int expected = 1;
+            Assert.assertEquals(expected, player.getCard(0).getValue().getIntValue()); 
+        }
+        @Test
+        public void aceValueTest()
+        {
+            Player player = new Player("Matt", 1000);
+            player.addCard(new Card(Suit.SPADES, Value.ACE));  
+            player.addCard(new Card(Suit.SPADES, Value.ACE)); 
+            
+            player.setSum();
+            int expected = 2;
+            Assert.assertEquals(expected, player.getSum()); 
+        }
     
     }

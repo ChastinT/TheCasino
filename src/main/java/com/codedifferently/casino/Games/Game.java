@@ -8,10 +8,11 @@ public interface Game
 {
 
   public String gameName = "Game";
+  public boolean gameisWon = false;
   ArrayList<Player> players = new ArrayList<Player>();
 
   //returning the name of the Game.Game
-  public String getGameName();
+ // public String getGameName();
   //Checking to see if the game is won
   public boolean isGameWon(); 
 
@@ -20,9 +21,6 @@ public interface Game
 
   //returns a list of the players
   public ArrayList<Player> getPlayers(); 
-
-  //setting the GameName to a new game
-  public String changeGameName(String name);
 
 
 }

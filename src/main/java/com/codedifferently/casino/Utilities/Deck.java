@@ -41,7 +41,7 @@ import java.util.Random;
 
         // get a card based on index in array
         public Card getCard(int index) {
-            return cards.get(index);
+            return cards.remove(index);
         }
         
         // get a specfied Card
