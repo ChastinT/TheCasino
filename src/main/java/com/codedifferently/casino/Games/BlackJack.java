@@ -16,8 +16,9 @@ public class BlackJack extends CardGame
         Scanner scan = new Scanner(System.in); //To get input
         public Dealer dealer = new Dealer(); //To compare against players and take and deal money
         private int turn; //To decide the players turn
-        public boolean loopedAlready = false;
-        int sumChecker = 0;
+        public boolean loopedAlready = false; //To see if a players hand already checked to see if Ace value changes
+        int sumChecker = 0; // To check a players hand sum to see if it needs to change Ace values
+        String board = ""; //String to print out the game's board
 
 
         public BlackJack()
@@ -42,7 +43,7 @@ public class BlackJack extends CardGame
         /*Method so a player can double their bet mid game, needs to be worked on*/
         public void doubleDown(Player player)
         {
-            dealer.bet(players.get(turn), dealer.getBetMoney()*2);
+            player.setBet(player.getBet()*2);
             hit(players.get(turn));
             stand();
         }
@@ -96,21 +97,10 @@ public class BlackJack extends CardGame
             setPlayers();
             }
             
-            //To set up for five rounds
-            for(int i = 0; i < rounds;i++)
-            {
-                System.out.println("Starting round: "+(i+1) +" out of "+rounds);
-                    setUpGame();
-                   playersTurn();
-                   dealersTurn();
-                   gameResult();
-                   resetGame();
-            }
+            //Starts the game and continues depending on round input
+            startGame(rounds);
 
-            System.out.println("Thank you for playing");
-
-                
-                       
+            System.out.println("Thank you for playing");          
         }
         
         /*Method to set up the game for play*/
@@ -127,33 +117,65 @@ public class BlackJack extends CardGame
            
     }
 
+    public void startGame(int rounds)
+    {
+                 //To set up for five rounds
+                 for(int i = 0; i < rounds;i++)
+                 {
+                     System.out.println("Starting round: "+(i+1) +" out of "+rounds);
+                         setUpGame();
+                        playersTurn();
+                        dealersTurn();
+                        gameResult();
+                        resetGame();
+                 }
+    }
+
     /*Sets up a viewable board with player names and handValue, need to make shorter*/
     public void getBoard()
     {
-        String board = "";
+        board = "";
         board += dealer.getName()+" the Dealer"+"\n"+"Hand is worth: "+dealer.getHand().get(0).getValue().getIntValue();
         board += "\n"+"\n";
+      
+        setBoardName();
+        setBoardHand();
+        setBoardMoney();
+
+        System.out.println(board);
         
+    }
+
+    //Adds players name to board
+    public void setBoardName()
+    {
+        board += "\n"+"\n";
         for (int i = 0; i < players.size();i++)
         {
             board += String.format("%-22s",players.get(i).getName()+" ");//Prints out all players name in a single line
            
         }
+    }
+
+     //Adds players hand value to board
+    public void setBoardHand()
+    {
         board += "\n";
         for (int i = 0; i < players.size();i++)
         {
             players.get(i).getSum();
-            board += String.format("%-22s","Hand is worth: "+players.get(i).getSum()+" ");//Prints out all players name in a single line
+            board += String.format("%-22s","Hand is worth: "+players.get(i).getSum()+" ");//Prints out all players hand in a single line
         }
+    }
+
+     //Adds how much money a player has to board
+    public void setBoardMoney()
+    {
         board += "\n";
         for (int i = 0; i < players.size();i++)
         {
-            board += String.format("%-22s","Currently has $ "+players.get(i).getMoney()+" ");
+            board += String.format("%-22s","Currently has $ "+players.get(i).getMoney()+" "); //Prints out all players money in a single line
         }
-        
-
-        System.out.println(board);
-        
     }
     /*To initially deal two cards from a shuffled deck to each player and the dealer*/
     public void dealCards()
@@ -173,7 +195,6 @@ public class BlackJack extends CardGame
                  
              }
          }
-        
          //Will remove dealer who is always the last one added to players
          players.remove(players.size()-1);
     }
@@ -210,12 +231,7 @@ public class BlackJack extends CardGame
     {
         if ((!isBust(players.get(turn)) && players.get(turn).getSum() != 21)) 
         {
-            System.out.println("It's "+players.get(turn).getName()+" turn");
-            setPlayerSum(players.get(turn));
-            System.out.println("Their hand is worth: "+players.get(turn).getSum());
-            System.out.println("What will they do");
-            System.out.println("1: DRAW \n2: STAND \n3: Double Down \n4: Check Hand");
-            
+            getPlayerHandWorth();
             int choice = scan.nextInt();
             System.out.println("");
             //Will hit the player and allow them to choose again if their card value is less than 21
@@ -360,6 +376,15 @@ public class BlackJack extends CardGame
       }
     }
    
+  }
+
+  public void getPlayerHandWorth()
+  {
+    System.out.println("It's "+players.get(turn).getName()+" turn");
+    setPlayerSum(players.get(turn));
+    System.out.println("Their hand is worth: "+players.get(turn).getSum());
+    System.out.println("What will they do");
+    System.out.println("1: DRAW \n2: STAND \n3: Double Down \n4: Check Hand");
   }
 }
 

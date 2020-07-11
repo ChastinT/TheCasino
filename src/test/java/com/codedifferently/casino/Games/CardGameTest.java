@@ -74,12 +74,14 @@ public class CardGameTest {
     }
 
     @Test
-    public void getGameNameTest() {
+    public void getGameNameTest() 
+    {
         // Given
-
+        String expected = "CardGame";
         // When
-
+        String actual = cGame.getGameName();
         // Then
+        Assert.assertEquals(expected, actual);
     }
 
     @Test

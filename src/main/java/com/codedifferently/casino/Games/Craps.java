@@ -7,6 +7,7 @@ import com.codedifferently.casino.Utilities.Dice;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+//Complete
 public  class Craps implements Game, Gamble
 {
      //we need two die to play craps
@@ -380,7 +381,7 @@ public  class Craps implements Game, Gamble
 
       public void continueGame()
       {
-          System.out.println("Do you want to continue playing 1: Yes 2:No");
+          System.out.println("Do you want to continue playing Craps 1: Yes 2:No");
           int choice = scan.nextInt();
           if(choice == 1)
           {
@@ -392,11 +393,5 @@ public  class Craps implements Game, Gamble
             gameisWon = true;
           }
       }
-
-      //Main method to test if crap games plays delete later
-      public static void main(String [] args)
-      {
-          Craps crap = new Craps();
-          crap.play();
-      }
+      
 }

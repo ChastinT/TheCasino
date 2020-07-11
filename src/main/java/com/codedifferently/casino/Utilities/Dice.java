@@ -22,6 +22,7 @@ public class Dice
   public void setSide(int side){
     this.side = side; 
   }
+  
   //method to roll the 6 sided die using a random object, acts like a setter
   public void roll()
   {

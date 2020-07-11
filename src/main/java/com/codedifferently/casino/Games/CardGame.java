@@ -9,9 +9,12 @@ import java.util.ArrayList;
 public class CardGame implements Game
     {
 
+        
         protected Deck deck = new Deck();
         private boolean win = false;
         protected ArrayList<Player> players = new ArrayList<Player>();
+        private String gameName = "CardGame";
+        
 
         // add one new player to a card game
         public void addPlayer() {
@@ -42,8 +45,9 @@ public class CardGame implements Game
             return win;
         }
 
-        public String getGameName() {
-            return null;
+        public String getGameName() 
+        {
+            return gameName;
         }
 
         //Will start the game

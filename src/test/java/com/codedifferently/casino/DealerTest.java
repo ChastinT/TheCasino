@@ -91,10 +91,27 @@ public class DealerTest {
     public void getSumTest()
      {
         // Given
+        dealPerson.setSum(50);
 
         // When
+        int expected = 50;
+        int actual = dealPerson.getSum();
 
         // Then
+        Assert.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void setSumTest() {
+        // Given
+        int expectedSum = 25;
+
+        // When
+        dealPerson.setSum(expectedSum);
+        int actualSum = dealPerson.getSum();
+
+        // Then
+        Assert.assertEquals(expectedSum, actualSum);
     }
 
 }
