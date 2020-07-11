@@ -1,6 +1,8 @@
 package com.codedifferently.casino;
 
 import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 import com.codedifferently.casino.Games.*;
 
@@ -13,15 +15,51 @@ public class Casino
   Game game;
   BlackJack blackJack = new BlackJack();
   GoFish goFish = new GoFish();
-  
+  Craps craps = new Craps();
+  ArrayList <Player> players = new ArrayList<Player>();
+
+  public void playersEnterCasino()
+  {
+    System.out.println("Welcome to the Casino!");
+    System.out.println("How many people are we expecting today");
+    int numPlayers = scan.nextInt();
+    if (numPlayers == 0)
+    {
+      System.out.println("You okay? \n Let's start over");
+      playersEnterCasino();
+    }
+    for (int i = 0; i < numPlayers;i++)
+    {
+      System.out.println("Hello person "+(i+1));
+      System.out.print("What's your name? ");
+      String name = scan.next();
+      
+      System.out.print("How much cash do you have on you? (In integers please): $");
+      double money = scan.nextDouble();
+      if (money < 2)
+      {
+        System.out.print("You too poor to be here, *throws a $100 worth of cash at you*");
+        money += 100;
+      }
+     
+      System.out.println("");
+      
+      Player newPlayer = new Player(name, money);
+      players.add(newPlayer);
 
 
-  public Casino(Double money){
+    }
+  }
+
+
+  public Casino(Double money)
+  {
     this.casinoName = "The Casino";
     this.casinoAccount = money;  
   }
 
-  public Casino(){
+  public Casino()
+  {
     this.casinoName = "The Casino"; 
   }
 
@@ -34,10 +72,13 @@ public class Casino
 
   }
 
-  public void removeCasinoMoney(double removal){
-    if(this.casinoAccount >= removal){
+  public void removeCasinoMoney(double removal)
+  {
+    if(this.casinoAccount >= removal)
+    {
       System.out.println("Not enough money to give player");
-    } else {
+    } else 
+    {
     this.casinoAccount -= removal; 
     } 
   }
@@ -76,26 +117,47 @@ public class Casino
   public void chooseGame()
   {
     
-    System.out.println("\nWelcome to the Casino \nWhat games would you like to play");
+    System.out.println("What games would you like to play, anything else other than these choices will make you leave");
     System.out.println("1: BlackJack \n2: Go Fish \n3: Craps");
     int choice = scan.nextInt();
     //Complete
     if (choice == 1)
     {
-      setGame(new BlackJack());
+      setGame(new BlackJack(players));
     }
-    /*Needs more testing*/
+    //Complete
     else if (choice == 2)
     {
-      System.out.println("How many players for GoFish");
-      setGame(new GoFish(scan.nextInt()));
+      //System.out.println("How many players for GoFish");
+      boolean passed = false;
+      while(!passed) { 
+        try{
+          int numOfPlayers = players.size();
+          while(numOfPlayers < 2)
+          {
+            System.out.print("Need at least 2 players. Adding a player...");
+            players.add(new Player("Newbie",300)); 
+            numOfPlayers = players.size();
+          }
+          setGame(new GoFish(players));
+          passed = true; 
+        } catch (InputMismatchException e){
+          System.out.print("Invalid Number. Please enter an integer: " + e);
+          scan.nextLine();
+        }
+      }
+      
     }
-    /*Needs more work done*/
+    //Complete
     else if (choice == 3)
     {
-      setGame(new Craps());
+      setGame(new Craps(players));
     }
-    
+    else
+    {
+      System.out.println("Don't be silly choose a game");
+      chooseGame();
+    }
     System.out.println("Would you like to play another game? \n1: Yes \n2:No");
     choice = scan.nextInt();
     if (choice == 1)
@@ -109,9 +171,15 @@ public class Casino
 
 
   }
+
+  public void startCasino()
+  {
+    playersEnterCasino();
+    chooseGame();
+  }
     public static void main(String [] args)
     {
       Casino casino = new Casino();
-      casino.chooseGame();
+      casino.startCasino();
     }
 }

@@ -1,8 +1,7 @@
 package com.codedifferently.casino.Utilities;
 
 import com.codedifferently.casino.Player;
-import com.codedifferently.casino.Utilities.Card;
-import com.codedifferently.casino.Utilities.Suit;
+import com.codedifferently.casino.Utilities.*;
 
 import java.util.ArrayList;
 import java.util.Collections;

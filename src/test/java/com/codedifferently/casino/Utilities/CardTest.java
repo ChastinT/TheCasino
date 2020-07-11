@@ -1,8 +1,6 @@
 package com.codedifferently.casino.Utilities;
 
-import com.codedifferently.casino.Utilities.Card;
-import com.codedifferently.casino.Utilities.Suit;
-import com.codedifferently.casino.Utilities.Value;
+import com.codedifferently.casino.Utilities.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

@@ -1,16 +1,15 @@
 package com.codedifferently.casino.Games;
 
-import com.codedifferently.casino.Dealer;
+import com.codedifferently.casino.*;
 import com.codedifferently.casino.Gamble;
 import com.codedifferently.casino.Games.CardGame;
 import com.codedifferently.casino.Player;
-import com.codedifferently.casino.Utilities.Card;
-import com.codedifferently.casino.Utilities.Deck;
-import com.codedifferently.casino.Utilities.Value;
+import com.codedifferently.casino.Utilities.*;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
-
+//Complete
 public class BlackJack extends CardGame 
     {
 
@@ -21,6 +20,12 @@ public class BlackJack extends CardGame
 
         public BlackJack()
         {
+            turn = 0;
+        }
+
+        public BlackJack(ArrayList<Player> players)
+        {
+            this.players = players;
             turn = 0;
         }
 
@@ -79,11 +84,15 @@ public class BlackJack extends CardGame
         public void play()
         {
             
-            System.out.println("How many rounds do you want to play");
+            System.out.println("How many rounds do you want to play, selecting 0 will make you leave the game");
+           
             int rounds = scan.nextInt();
                  
-            //To set players up
+            //To set players up if there are none
+            if (players.size() == 0)
+            {
             setPlayers();
+            }
             
             //To set up for five rounds
             for(int i = 0; i < rounds;i++)
@@ -170,9 +179,17 @@ public class BlackJack extends CardGame
     /*To add players to the game, use 0 if continueing a game*/
     public void setPlayers()
     {
-        System.out.println("How many players to add, use 0 if continueing a game with no new players");
+       
         int playersAdd = scan.nextInt();
-        addPlayers(playersAdd);     
+        if (playersAdd != 0)
+        {
+            addPlayers(playersAdd); 
+        }
+        else if(playersAdd == 0 && players.size() == 0)
+        {
+            System.out.println("Sorry you can't play if you don't exist");
+            setPlayers();
+        }  
     }
 
     /*Method to go through every players turn and give them options depending on handValue*/
@@ -195,7 +212,7 @@ public class BlackJack extends CardGame
             setPlayerSum(players.get(turn));
             System.out.println("Their hand is worth: "+players.get(turn).getSum());
             System.out.println("What will they do");
-            System.out.println("1: DRAW 2: STAND 3: Double Down 4: Check Hand");
+            System.out.println("1: DRAW \n2: STAND \n3: Double Down \n4: Check Hand");
             
             int choice = scan.nextInt();
             System.out.println("");
@@ -244,6 +261,7 @@ public class BlackJack extends CardGame
 
         while (dealer.getSum() < 17) //Dealer will hit till they get over 17
         {
+
             hit(dealer);
         }
     }
@@ -272,7 +290,7 @@ public class BlackJack extends CardGame
     //Works but doesn't printout when dealer wins
     public void gameResult()
     {
-    
+        
         System.out.println("The dealer has: "+dealer.getSum());
         for (int i = 0; i < players.size();i++)
         {

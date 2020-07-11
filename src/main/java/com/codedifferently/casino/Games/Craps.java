@@ -27,6 +27,11 @@ public  class Craps implements Game, Gamble
         gameName = "Craps";
       }
 
+      public Craps(ArrayList<Player> playerss)
+      {
+        this.players = playerss;
+      }
+
       public String getGameName()
       {
         return gameName;
@@ -38,7 +43,10 @@ public  class Craps implements Game, Gamble
         System.out.println("Hello welcome to the Craps Simulation!");
         System.out.println("Enjoy the game!");
       //Add players to game if needed
-       setPlayers();
+        if (players.size() == 0)
+        {
+          setPlayers();
+        }
   
         while(gameisWon == false)
         {
@@ -72,7 +80,16 @@ public  class Craps implements Game, Gamble
             System.out.println("Does "+players.get(i).getName()+" pass or not(Support the shooter or players(0)");
             System.out.println("1: Yes Pass, 2: No Pass");
             int choice = scan.nextInt();
-            players.get(i).setPass(choice);
+            if (choice == 1 || choice == 2)
+            {
+              players.get(i).setPass(choice);
+            }
+            else
+            {
+              System.out.println("Please choose one of the options");
+              i--;
+            }
+            
         }
       }
       
@@ -293,9 +310,21 @@ public  class Craps implements Game, Gamble
     /*To add players to the game, use 0 if continueing a game*/
     public void setPlayers()
     {
-        System.out.println("How many players to add, use 0 if continuing a game with no new players");
-        int playersAdd = scan.nextInt();
-        addPlayers(playersAdd);     
+      System.out.println("How many players to add, use 0 if continuing a game with no new players");
+      int playersAdd = scan.nextInt();
+      if (playersAdd != 0)
+      {
+          addPlayers(playersAdd); 
+      }
+      else if(playersAdd == 0 && players.size() == 0)
+      {
+          System.out.println("Sorry you can't play if you don't exist");
+          setPlayers();
+      }
+      else
+      {
+          System.out.println("Continuing with current people");
+      }     
     }
 
 
@@ -364,7 +393,7 @@ public  class Craps implements Game, Gamble
           }
       }
 
-      //Main method to test if crap games plays
+      //Main method to test if crap games plays delete later
       public static void main(String [] args)
       {
           Craps crap = new Craps();

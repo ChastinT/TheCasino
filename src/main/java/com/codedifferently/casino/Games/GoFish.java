@@ -1,12 +1,11 @@
 package com.codedifferently.casino.Games;
 
 import com.codedifferently.casino.Player;
-import com.codedifferently.casino.Utilities.Card;
-import com.codedifferently.casino.Utilities.Value;
-import com.codedifferently.casino.Utilities.Deck;
+import com.codedifferently.casino.Utilities.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 
 public class GoFish extends CardGame
 {
@@ -14,88 +13,153 @@ public class GoFish extends CardGame
         private int turn = 1; // keeps track of whose turn it is
         private Deck ocean = new Deck(); // cards not dealt to players
            
-        // Play the Go Fish game
-        public void play() {
-            Scanner keyboard = new Scanner(System.in);
-
-            System.out.println("Welcome to Go Fish!");
-            System.out.print("Dealing cards...\n");
-            deal();
-
-            for(int p = 0; p < players.size(); p++) { // check if anyone has 4 of a kind from the start
-                for(int i = 1; i <= 13; i++) {
-                    Player eachPlayer = players.get(p);
-                    Value currentVal = numToValue(i);
-                    if(countMatches(eachPlayer, currentVal) == 4) {
-                        removeAllOccurrences(eachPlayer, currentVal);
-                    }
-                }
-            }
-
-            while(!isGameEnded()) {
-                Player turnPlayer = players.get(turn - 1);
-                ArrayList<Card> turnHand = turnPlayer.getHand();
-
-                System.out.println("\nIt is now Player " + turn + "\'s turn. Here are your cards: ");
-
-                boolean guessRight = true;
-                do {
-                    System.out.println(turnHand);
-                    System.out.print("Which player do you want to ask? ");
-                    int playerChoice = keyboard.nextInt() - 1;
-                    Player choicePlayer = players.get(playerChoice);
-                    System.out.print("Which value are you asking for? ");
-                    int searchInt = keyboard.nextInt();
-                    Value searchValue = numToValue(searchInt);
-
-                    if (ask(choicePlayer, searchValue)) {
-                        System.out.print("They have " + searchValue + "'s! ");
-                        turnHand.addAll(removeAllOccurrences(choicePlayer, searchValue)); // need to remove all occurrences and give to asking player
-                        if (countMatches(turnPlayer, searchValue) == 4) {
-                            System.out.println("You have a 4 of kind with " + searchValue);
-                            removeAllOccurrences(turnPlayer, searchValue);
-                            if(isGameEnded()) { 
-                                System.out.print("Player " + turn + " wins!");
-                                break;
-                            }
-                        }
-                        System.out.println("Your hand now looks like this:\n");
-                    } else {
-                        System.out.print("They don't have any " + searchValue + "\'s. Go Fish! ");
-                        System.out.print("Pick a number 1-" + ocean.getDeckSize() + " to fish: ");
-                        int fishChoice = keyboard.nextInt() - 1;
-                        Card fished = fish(turnPlayer, fishChoice);
-                        if(!(fished.getValue().equals(searchValue))) {
-                            guessRight = false;
-                        } else if(countMatches(turnPlayer, searchValue) == 4) {
-                            removeAllOccurrences(turnPlayer, searchValue);
-                            if(isGameEnded()) { 
-                                System.out.print("Player " + turn + " wins!");
-                                break;
-                            }
-                            System.out.println("Your fished your card! It's still your turn:");
-                        } else {
-                            System.out.println("Your fished your card! It's still your turn:");
-                        }
-                    }
-                } while(guessRight);
-                
-                if(isGameEnded()) {System.out.print("Player " + turn + " wins!");}
-
-                nextTurn();
-            }
-
-            keyboard.close();
-        }
-         
-        public GoFish() {
-            
+        public GoFish() {}
+        
+        public GoFish(ArrayList<Player> players) {
+            this.players = players;
         }
         
         public GoFish(int numOfPlayers) // Generate given number of players and store in players (ArrayList)
-        {
-            addPlayers(numOfPlayers);
+        {   
+            if(numOfPlayers >= 2){
+                addPlayers(numOfPlayers);
+            } else {
+                System.out.println("Sorry, you have to have at least two players!");
+
+            }
         }
+        
+        // Play the Go Fish game
+        public void play() {
+            if(!(players.size() > 7)) {
+
+                Scanner keyboard = new Scanner(System.in);
+
+                System.out.println("Welcome to Go Fish!");
+                System.out.print("Dealing cards...\n");
+                deal();
+
+                for(int p = 0; p < players.size(); p++) { // check if anyone has 4 of a kind from the start
+                    for(int i = 1; i <= 13; i++) {
+                        Player eachPlayer = players.get(p);
+                        Value currentVal = numToValue(i);
+                        if(countMatches(eachPlayer, currentVal) == 4) {
+                            removeAllOccurrences(eachPlayer, currentVal);
+                        }
+                    }
+                }
+
+                while(!isGameEnded()) {
+                    Player turnPlayer = players.get(turn - 1);
+                    ArrayList<Card> turnHand = turnPlayer.getHand();
+
+                    System.out.println("\nIt is now Player " + turn + "\'s turn. Here are your cards: ");
+
+                    boolean guessRight = true;
+                    do {
+                        System.out.println(turnHand);
+
+                        int playerChoice = 1;
+                        boolean passed = false;
+                        while(!passed) {
+                            try {
+                                System.out.print("Which player do you want to ask? ");
+                                playerChoice = keyboard.nextInt() - 1;
+                                while(playerChoice < 1 || playerChoice > players.size()) {
+                                    System.out.print("Invalid player. Please choose a player (1-" + players.size() + "): ");
+                                    playerChoice = keyboard.nextInt();
+                                }
+                                passed = true;
+                            } catch (InputMismatchException err) {
+                                System.out.print("Err, please enter an integer. ");
+                                keyboard.nextLine();
+                            }
+                        }
+
+                        Player choicePlayer = players.get(playerChoice);
+                        
+                        int searchInt = 1;
+                        passed = false;
+                        while(!passed) {
+                            try {
+                                System.out.print("Which value are you asking for? ");
+                                searchInt = keyboard.nextInt();
+                                while(searchInt < 1 || searchInt > 13) {
+                                    System.out.print("Invalid value. Please choose a value (1-13): ");
+                                    searchInt = keyboard.nextInt();
+                                }
+                                passed = true;
+                            } catch (InputMismatchException err) {
+                                System.out.print("Err, please enter an integer. ");
+                                keyboard.nextLine();
+                            }
+                        }
+
+                        Value searchValue = numToValue(searchInt);
+
+                        if (ask(choicePlayer, searchValue)) {
+                            System.out.print("They have " + searchValue + "'s! ");
+                            turnHand.addAll(removeAllOccurrences(choicePlayer, searchValue)); // need to remove all occurrences and give to asking player
+                            if (countMatches(turnPlayer, searchValue) == 4) {
+                                System.out.println("You have a 4 of kind with " + searchValue);
+                                removeAllOccurrences(turnPlayer, searchValue);
+                                if(isGameEnded()) { 
+                                    System.out.print("Player " + turn + " wins!");
+                                    break;
+                                }
+                            }
+                            System.out.println("Your hand now looks like this:\n");
+                        } else {
+                        
+                            System.out.print("They don't have any " + searchValue + "\'s. Go Fish! ");
+
+                            int fishChoice = 1;
+                            passed = false;
+                            while(!passed) {
+                                try {
+                                    System.out.print("Pick a number 1-" + ocean.getDeckSize() + " to fish: ");
+                                    fishChoice = keyboard.nextInt();
+                                    while(fishChoice <= 0 || fishChoice > ocean.getDeckSize()){
+                                        System.out.print("Invalid number. Pick a number 1-" + ocean.getDeckSize() + " to fish: ");
+                                        fishChoice = keyboard.nextInt();
+                                    }
+                                    passed = true;
+                                } catch(InputMismatchException err) {
+                                    System.out.print("Err, please enter an integer. ");
+                                    keyboard.nextLine();
+                                }
+                            }
+                            
+                                Card fished = fish(turnPlayer, fishChoice);
+                                if(!(fished.getValue().equals(searchValue))) {
+                                guessRight = false;
+                            } else if(countMatches(turnPlayer, searchValue) == 4) {
+                                removeAllOccurrences(turnPlayer, searchValue);
+                                if(isGameEnded()) { 
+                                    System.out.print("Player " + turn + " wins!");
+                                    break;
+                                }
+                                System.out.println("Your fished your card! It's still your turn:");
+                            } else {
+                                System.out.println("Your fished your card! It's still your turn:");
+                            }
+                        
+                        }
+                    } while(guessRight);
+                    
+                    if(isGameEnded()) {System.out.print("Player " + turn + " wins!");}
+
+                    nextTurn();
+                }
+
+                keyboard.close();
+
+            } else {
+                System.out.println("You have too many players!");
+            }
+        }
+         
+        
         
         /*
         * Deal cards to players

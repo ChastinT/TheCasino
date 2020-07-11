@@ -34,4 +34,9 @@ package com.codedifferently.casino;
           return sum;
         }
 
+        public void setSum(int enter)
+        {
+            sum = enter;
+        }
+
     }

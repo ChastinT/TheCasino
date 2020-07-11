@@ -1,9 +1,7 @@
 package com.codedifferently.casino;
 
 import com.codedifferently.casino.Player;
-import com.codedifferently.casino.Utilities.Card;
-import com.codedifferently.casino.Utilities.Suit;
-import com.codedifferently.casino.Utilities.Value;
+import com.codedifferently.casino.Utilities.*;
 import org.junit.Assert;
 import org.junit.Test;
 import org.w3c.dom.CharacterData;
