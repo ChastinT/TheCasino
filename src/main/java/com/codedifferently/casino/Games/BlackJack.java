@@ -13,7 +13,7 @@ import java.util.Scanner;
 public class BlackJack extends CardGame 
     {
 
-        Scanner scan = new Scanner(System.in); //To get input
+        ScanCatcher scan = new ScanCatcher(); //To get input
         public Dealer dealer = new Dealer(); //To compare against players and take and deal money
         private int turn; //To decide the players turn
         public boolean loopedAlready = false; //To see if a players hand already checked to see if Ace value changes

@@ -13,12 +13,12 @@ public class GoFish extends CardGame
 
         private int turn = 1; // keeps track of whose turn it is
         private Deck ocean = new Deck(); // cards not dealt to players
-        Scanner keyboard = new Scanner(System.in);
+        ScanCatcher keyboard = new ScanCatcher();
         private Player turnPlayer; // pls
         private ArrayList<Card> turnHand; // hand of the player whose turn it is
         private Player choicePlayer; // player who is being asked
         private Value searchValue;
-        public boolean passed;
+        //public boolean passed;
         public boolean guessRight;
         
         public GoFish() 
@@ -55,7 +55,6 @@ public class GoFish extends CardGame
         // check if anyone has 4 of a kind from the start
         public void startCheck()
         {
-            
             for(int p = 0; p < players.size(); p++) 
             { 
                 for(int i = 1; i <= 13; i++) 
@@ -73,11 +72,7 @@ public class GoFish extends CardGame
         public Player getPlayerChoice()
         {  
             int playerChoice = 1;
-            passed = false;
-            while(!passed) 
-            {
-            try 
-            {
+
                 System.out.print("Which player do you want to ask? ");
                 playerChoice = keyboard.nextInt();
                 while(playerChoice < 1 || playerChoice > players.size()) 
@@ -85,26 +80,15 @@ public class GoFish extends CardGame
                     System.out.print("Invalid player. Please choose a player (1-" + players.size() + "): ");
                     playerChoice = keyboard.nextInt();
                 }
-                passed = true;
-            } 
-            catch (InputMismatchException err) 
-            {
-                System.out.print("Err, please enter an integer. ");
-                keyboard.nextLine();
-            }
-          }
-          return players.get(playerChoice - 1); 
+                
+            choicePlayer = players.get(playerChoice -1);
 
+          return choicePlayer;
         }
 
         public Value getSearchInt()
         {
             int searchInt = 1;
-            passed = false;
-            while(!passed) 
-            {
-                try 
-                {
                     System.out.print("Which value are you asking for? ");
                     searchInt = keyboard.nextInt();
                     while(searchInt < 1 || searchInt > 13) 
@@ -112,15 +96,10 @@ public class GoFish extends CardGame
                         System.out.print("Invalid value. Please choose a value (1-13): ");
                         searchInt = keyboard.nextInt();
                     }
-                    passed = true;
-                } 
-                catch (InputMismatchException err) 
-                {
-                    System.out.print("Err, please enter an integer. ");
-                    keyboard.nextLine();
-                }
-            } 
-            return numToValue(searchInt);
+
+            searchValue = numToValue(searchInt);
+
+            return  searchValue;
 
         }
 
@@ -145,25 +124,14 @@ public class GoFish extends CardGame
          public Card getFish()
          {
             int fishChoice = 1;
-            passed = false;
-            while(!passed) 
+            System.out.print("Pick a number 1-" + ocean.getDeckSize() + " to fish: ");
+            fishChoice = keyboard.nextInt();
+            while(fishChoice <= 0 || fishChoice > ocean.getDeckSize())
             {
-                try {
-                    System.out.print("Pick a number 1-" + ocean.getDeckSize() + " to fish: ");
-                    fishChoice = keyboard.nextInt();
-                    while(fishChoice <= 0 || fishChoice > ocean.getDeckSize())
-                    {
-                        System.out.print("Invalid number. Pick a number 1-" + ocean.getDeckSize() + " to fish: ");
-                        fishChoice = keyboard.nextInt();
-                    }
-                    passed = true;
-                } 
-                catch(InputMismatchException err) 
-                {
-                    System.out.print("Err, please enter an integer. ");
-                    keyboard.nextLine();
-                }
+                System.out.print("Invalid number. Pick a number 1-" + ocean.getDeckSize() + " to fish: ");
+                fishChoice = keyboard.nextInt();
             }
+                           
             return fish(turnPlayer, fishChoice);
         }
 
@@ -179,7 +147,6 @@ public class GoFish extends CardGame
                 if(isGameEnded()) 
                 { 
                     System.out.print("Player " + turn + " wins!");
-                    //break;
                 }
                 System.out.println("Your fished your card! It's still your turn:");
             } 
@@ -190,50 +157,47 @@ public class GoFish extends CardGame
 
         } 
 
+        public void guessCard()
+        {
+            do{
+                System.out.println(turnHand);
+                if (ask(getPlayerChoice(), getSearchInt())) 
+                {
+                    takePlayerCard(choicePlayer);
+                } 
+                else 
+                {
+                    System.out.print("They don't have any " + searchValue + "\'s. Go Fish! ");
+                    checkFishCard(getFish());
+                }
+            } while(guessRight); 
+        } 
 
-        
+        public void continueGame()
+        {
+            turnPlayer = players.get(turn - 1);
+            turnHand = turnPlayer.getHand();
+
+            System.out.println("\nIt is now Player " + turn + "\'s turn. Here are your cards: ");
+
+            guessRight = true;
+            guessCard();  
+        }
+  
         // Play the Go Fish game
         public void play()
         {
-                setup();
-                while(!isGameEnded()) 
-                {
-                    turnPlayer = players.get(turn - 1);
-                    turnHand = turnPlayer.getHand();
-
-                    System.out.println("\nIt is now Player " + turn + "\'s turn. Here are your cards: ");
-
-                    guessRight = true;
-                    do 
-                    {
-                        System.out.println(turnHand);
-                        choicePlayer = getPlayerChoice();
-                        searchValue = getSearchInt();
-                        if (ask(choicePlayer, searchValue)) 
-                        {
-                            takePlayerCard(choicePlayer);
-                        } 
-                        else 
-                        {
-                            System.out.print("They don't have any " + searchValue + "\'s. Go Fish! ");
-                            Card fished = getFish();
-                            checkFishCard(fished);
-                        }
-                    } 
-                    while(guessRight); //Chastin - What does this do? // Keeps looping while the turnPlayer guesses the right value
-                    
-                    if(isGameEnded()) {
-                        System.out.print("Player " + turn + " wins!");
-                        break;
-                    }
-
-                    nextTurn();
-                }
-                keyboard.close();
+            setup();
+            while(!isGameEnded()) 
+            {
+                continueGame();
+                nextTurn();
+            }
+            System.out.print("Player " + turn + " wins!");
         }
          
             
-        /*
+       /*
         * Deal cards to players
         * Each player gets 7 cards
         */
@@ -264,7 +228,6 @@ public class GoFish extends CardGame
         {
             if(ocean.getDeckSize() > 0) 
             {
-                //What's happening here? //well firstly there were unnecessary duplicates
                 Card cardFished = ocean.getCard(cardInOcean-1); // player picks from unknown cards left, return card at index
                 player.addCard(cardFished); // add fished card to their hand
                 return cardFished;
@@ -359,9 +322,7 @@ public class GoFish extends CardGame
                 }
             }
             
-
             return removedCards;
         }
-
 
 }   
