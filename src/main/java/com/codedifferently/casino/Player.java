@@ -114,7 +114,7 @@ import java.util.ArrayList;
       return removed;
     }
 
-    /* Adds the values from all cards in the hand to the players sum*/
+    /*Sets the players sum*/
     public void setSum(int enter)
     {
       sum = enter;

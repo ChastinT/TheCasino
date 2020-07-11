@@ -16,7 +16,9 @@ public class BlackJack extends CardGame
         Scanner scan = new Scanner(System.in); //To get input
         public Dealer dealer = new Dealer(); //To compare against players and take and deal money
         private int turn; //To decide the players turn
-        private boolean loopedAlready = false;
+        public boolean loopedAlready = false;
+        int sumChecker = 0;
+
 
         public BlackJack()
         {
@@ -329,25 +331,25 @@ public class BlackJack extends CardGame
   public void setPlayerSum(Player player)
   {
    
-    int sum = 0;
+    sumChecker = 0;
     for (int i = 0; i < player.getHand().size();i++)
     {
      
-      sum+= player.getHand().get(i).getValue().getIntValue();
+      sumChecker += player.getHand().get(i).getValue().getIntValue();
     }
     
-    player.setSum(sum);
-      if (checkAce(player,player.getSum(),loopedAlready))
+        player.setSum(sumChecker);
+      if (loopedAlready == false)
       {
+        checkAce(player, player.getSum());
+        loopedAlready = true; 
         setPlayerSum(player);
       }
-
-      loopedAlready = false;
         
   }
-  public boolean checkAce(Player player,int result,boolean loopedAlready)
+  public void checkAce(Player player,int playerSum)
   {
-    if ((player.checkHand(Value.ACE) && (result > 21)) && loopedAlready == false)
+    if (loopedAlready == false && playerSum > 21 )
     {
       for (int i = 0; i< player.getHand().size();i++)
       {
@@ -356,17 +358,9 @@ public class BlackJack extends CardGame
           player.getHand().get(i).getValue().switchAceValue();
         }
       }
-      loopedAlready = true;
-      return true;
-
     }
-    else if (loopedAlready == true)
-    {
-      return false;
-    }
-    return false;
-  }
    
+  }
 }
 
 
